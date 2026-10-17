@@ -51,7 +51,8 @@ establish that a place is open right now or on a holiday.
 
 `resolve_point` returns a ResolvedPoint model with zip/location fields, or None.
 City matching is normalized exact-name matching; ambiguous cities choose the
-lowest ZIP deterministically. Coverage is currently Othello only.
+lowest ZIP deterministically. Coverage is currently Othello (99344) and Curlew (99118). Curlew uses a Census
+ZCTA reference point rather than the town center.
 
 `list_events` returns at most five typed FoodEvent models, ordered by
 start time, within 40 miles, from now through the next 14 days by default.
@@ -66,7 +67,11 @@ error reply. An outage must not be presented as no resources available.
 
 ## Current dataset and remaining work
 
-- The reviewed seed contains ZIP 99344, Walmart, Lep-Re-Kon, and Othello Food Bank.
+- The Adams seed contains ZIP 99344, Walmart, Lep-Re-Kon, and Othello Food Bank.
+- The Ferry seed adds ZIP 99118, Curlew Community Food Pantry, Danville Outpost,
+  and Ferry County Co-op. Run `python -m scripts.seed_adams --dataset ferry-wa --apply`.
+  The pantry is first/third Thursday only; the co-op has seasonal hours. See
+  `data/ferry-wa/sources.json` for provenance and schedule limitations.
 - Lep-Re-Kon has unknown weekly days, so Saturday-filtered results currently
   contain only Walmart. Never promise three results when fewer match.
 - Othello Food Bank is free distribution, with `accepts_snap=false` denoting no

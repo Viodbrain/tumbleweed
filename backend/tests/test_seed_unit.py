@@ -5,12 +5,15 @@ from pathlib import Path
 from types import SimpleNamespace
 from unittest.mock import AsyncMock, Mock
 
+import pytest
 
-async def test_seed_verifies_more_than_three_places(tmp_path, monkeypatch):
+
+@pytest.mark.parametrize("dataset", ["adams-wa", "ferry-wa"])
+async def test_seed_verifies_more_than_three_places(tmp_path, monkeypatch, dataset):
     monkeypatch.syspath_prepend(str(Path(__file__).resolve().parents[2]))
     from scripts import seed_adams
 
-    folder = tmp_path / "data/adams-wa"
+    folder = tmp_path / "data" / dataset
     folder.mkdir(parents=True)
     point = {"type": "Point", "coordinates": [-119.16, 46.82]}
     records = [
@@ -50,7 +53,7 @@ async def test_seed_verifies_more_than_three_places(tmp_path, monkeypatch):
     monkeypatch.setattr(seed_adams, "get_db", lambda: database)
     monkeypatch.setattr(seed_adams, "apply_indexes", AsyncMock())
     monkeypatch.setattr(seed_adams, "close_db", AsyncMock())
-    monkeypatch.setattr("sys.argv", ["scripts.seed_adams", "--apply"])
+    monkeypatch.setattr("sys.argv", ["scripts.seed_adams", "--dataset", dataset, "--apply"])
     assert await seed_adams.main() == 0
     pipeline = database.places.aggregate.call_args.args[0]
     assert not any("$limit" in stage for stage in pipeline)

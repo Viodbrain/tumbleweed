@@ -19,11 +19,12 @@ from scripts.setup_indexes import apply_indexes
 async def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--apply", action="store_true")
+    parser.add_argument("--dataset", choices=["adams-wa", "ferry-wa"], default="adams-wa")
     args = parser.parse_args()
     root = Path(__file__).resolve().parents[1]
     datasets = {}
     for collection, filename in (("zips", "zips.json"), ("places", "places.json")):
-        records = json.loads((root / "data/adams-wa" / filename).read_text())
+        records = json.loads((root / "data" / args.dataset / filename).read_text())
         ids = set()
         for record in records:
             identifier = record.get("_id")
@@ -67,7 +68,8 @@ async def main():
                     f"modified {result.modified_count}."
                 )
         await apply_indexes(db)
-        origin = (await db.zips.find_one({"_id": "99344"}))["location"]
+        origin_zip = datasets["zips"][0]["_id"]
+        origin = (await db.zips.find_one({"_id": origin_zip}))["location"]
         cursor = await db.places.aggregate(
             [
                 {
