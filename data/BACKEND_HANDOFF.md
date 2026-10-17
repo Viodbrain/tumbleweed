@@ -66,12 +66,14 @@ error reply. An outage must not be presented as no resources available.
 
 ## Current dataset and remaining work
 
-- Atlas contains ZIP 99344 and two SNAP grocery stores: Walmart and Lep-Re-Kon.
+- The reviewed seed contains ZIP 99344, Walmart, Lep-Re-Kon, and Othello Food Bank.
 - Lep-Re-Kon has unknown weekly days, so Saturday-filtered results currently
   contain only Walmart. Never promise three results when fewer match.
-- Food bank address and coordinates are recorded in the research draft, but it
-  remains excluded because the shared boolean SNAP field cannot express unknown
-  or non-retail status. Resolve its treatment with the team before import.
+- Othello Food Bank is free distribution, with `accepts_snap=false` denoting no
+  SNAP retail purchase for that service. SNAP recipients may still use it.
+  Search `kind="foodbank"` without `accepts_snap=True` for free food banks.
+  Public hours use the operator's Mon-Wed 1-4pm; WA211 differs, so notes advise
+  calling. Thursday is restricted senior pickup and excluded from public days.
 - No Google Maps key or routing API is required for the chosen distances.
 - Integration now preserves the async signatures and Pydantic types from the
   backend scaffold pulled from main (8d23efe). No shared models or AI files were changed.
@@ -93,6 +95,6 @@ unique `_id` index. No TTL policy is imposed. Existing duplicate user handles
 must be resolved before the unique index can be created.
 
 Data coverage expansion is a separate follow-up: load a sourced full WA ZIP
-lookup, verified food-bank data, a current real event, and Seattle resources.
+lookup, additional food-bank data, a current real event, and Seattle resources.
 Current coverage does not support those demo scenarios yet. No additional
 records are implied by the code fixes in this PR.

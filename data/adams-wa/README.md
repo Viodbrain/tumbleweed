@@ -1,7 +1,9 @@
 # Adams County, Washington: initial Othello dataset
 
 Prepared October 17, 2026. Target ZIP: 99344. Loaded the reviewed ZIP and two
-grocery records into Atlas on October 17, 2026. The food bank remains draft.
+grocery records into Atlas on October 17, 2026. Othello Food Bank is now also
+included in the reviewed seed and loaded into Atlas. Food-bank ZIP/day filters
+were verified against Atlas after import.
 
 ## Location
 
@@ -16,8 +18,7 @@ origin for this ZIP, not a ZIP boundary centroid or the user's precise location.
 
 `places.draft.json` contains three candidate resources, their sources, and pending
 verification tasks. It is a research format, not the application's Place schema.
-Do not import it into the live places collection. Unknown
-SNAP status must be resolved before producing seed-ready records. Do not use
+Do not import this research wrapper into the live places collection. Do not use
 town-center coordinates for individual businesses or convert unknown SNAP status
 to false.
 
@@ -63,12 +64,14 @@ https://services1.arcgis.com/RLQu0rK7h4kbsBq5/arcgis/rest/services/snap_retailer
 The dataset item `8b260f9a10b0459aa441ad8588c2251c` is linked by USDA's
 https://www.fns.usda.gov/snap/retailer-locator page. Retrieved October 17, 2026.
 
-`places.json` contains the two grocery records that match the shared schema.
-The food bank remains draft because SNAP acceptance is unknown and the agreed
-schema requires a boolean. Free distribution is not the same as accepting EBT
-for a purchase; ask the data/brain owners how to represent non-retail resources
-without mislabeling an unknown as false. Its phone is corroborated by Catholic
-Charities Eastern Washington's parish social ministry listing.
+`places.json` contains two groceries and Othello Food Bank. The food bank's
+`accepts_snap=false` represents a free distribution service with no SNAP retail
+purchase, not a claim that SNAP recipients cannot use it. This is distinct from
+an unknown grocery's SNAP acceptance. Its phone is corroborated by Catholic
+Charities Eastern Washington and WA211. Public hours are Mon-Wed 1-4pm from
+the operator's site; WA211 lists noon-3pm. Notes disclose this discrepancy and
+advise calling. Thursday's restricted senior pickup is not a public open day.
+The operator's about page confirms its address and ZIP 99344 service area.
 
 All three records now have sourced coordinates, suitable as approximate points
 for nearby searches. None has a separately verified entrance. Do not describe
@@ -81,6 +84,10 @@ both collections, plus city and region indexes. A 40-mile SNAP-filtered search
 returned Lep-Re-Kon (about 0.79 straight-line miles) and Walmart (about 1.30)
 from the Othello town point.
 
+The food-bank addition brought the dataset to three places. A food-bank search
+for ZIP 99344 returns Othello Food Bank at about 0.66 straight-line miles.
+Thursday and Saturday public food-bank searches correctly return no results.
+
 To validate locally: `.venv/bin/python -m scripts.seed_adams`.
 To upsert the reviewed records again: `.venv/bin/python -m scripts.seed_adams --apply`.
 The script updates only the listed IDs and does not delete other records.
@@ -91,7 +98,7 @@ All database configuration uses the shared loader with process environment,
 then `backend/.env`, then the legacy root `.env.local` fallback. Events use UTC
 BSON dates. The sync `lib/` copy was removed.
 
-Remaining work: resolve food-bank SNAP representation, confirm Harvest Foods'
+Remaining work: reconcile the food-bank hours discrepancy, confirm Harvest Foods'
 weekly days, verify entrances, and implement upcoming-event lookup.
 
 No upcoming event is included until a current dated distribution is verified.

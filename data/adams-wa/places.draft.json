@@ -15,25 +15,27 @@
             46.826247287234
           ]
         },
-        "hours": "Mon-Wed 1pm-4pm; Thu 10am-1pm for enrolled senior-program participants only",
+        "hours": "Mon-Wed 1pm-4pm",
         "days": [
           "mon",
           "tue",
           "wed"
         ],
-        "accepts_snap": null,
+        "accepts_snap": false,
         "phone": "+15094886044",
-        "notes": "One food box per household per week. Bring photo ID and an address if available. Thursday pickup is restricted to enrolled senior-program participants.",
+        "notes": "Free food; no SNAP purchase required. Serves ZIP 99344. One box per household weekly. Bring photo ID and address if available. Thu 10am-1pm is enrolled senior-program pickup only. Spanish available. WA211 lists different public hours; call to confirm.",
         "region": "rural"
       },
       "sources": [
         "https://othellofood.org/",
         "https://search.wa211.org/search/14d495ee-dc30-5b8c-ad56-325540bb9ad0?entry=search_card",
-        "https://www.cceasternwa.org/parish-social-ministry"
+        "https://www.cceasternwa.org/parish-social-ministry",
+        "https://othellofood.org/about-othello-food-bank/",
+        "https://search.wa211.org/search/14d495ee-dc30-5b8c-ad56-325540bb9ad0?entry=topic_card"
       ],
       "pending": [
-        "Resolve SNAP field before converting to shared Place schema; free distribution is distinct from SNAP retail acceptance.",
-        "Verify public entrance before claiming entrance-accurate driving directions."
+        "Verify public entrance before claiming entrance-accurate driving directions.",
+        "Reconcile public pickup hours: operator says 1-4pm; WA211 says noon-3pm. Operator prioritized; call confirmation pending."
       ],
       "address_verification": {
         "method": "user confirmation in chat",
@@ -44,7 +46,9 @@
         "source": "https://geocoding.geo.census.gov/geocoder/locations/onelineaddress?address=949%20E%20Main%20St%2C%20Othello%2C%20WA%2099344&benchmark=Public_AR_Current&format=json",
         "method": "Census street-address interpolation",
         "entrance_verified": false
-      }
+      },
+      "snap_classification": "False denotes no SNAP retail purchase for this free food-distribution service; it does not mean SNAP recipients cannot receive food.",
+      "status": "included_in_places_seed"
     },
     {
       "record": {

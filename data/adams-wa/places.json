@@ -44,5 +44,28 @@
     "phone": "+15094889992",
     "notes": "Weekly open days are unverified; call to confirm.",
     "region": "rural"
+  },
+  {
+    "_id": "othello-food-bank",
+    "name": "Othello Food Bank",
+    "kind": "foodbank",
+    "address": "949 E Main St, Othello, WA 99344",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        -119.161263021466,
+        46.826247287234
+      ]
+    },
+    "hours": "Mon-Wed 1pm-4pm",
+    "days": [
+      "mon",
+      "tue",
+      "wed"
+    ],
+    "accepts_snap": false,
+    "phone": "+15094886044",
+    "notes": "Free food; no SNAP purchase required. Serves ZIP 99344. One box per household weekly. Bring photo ID and address if available. Thu 10am-1pm is enrolled senior-program pickup only. Spanish available. WA211 lists different public hours; call to confirm.",
+    "region": "rural"
   }
 ]
