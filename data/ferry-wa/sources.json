@@ -1,0 +1,49 @@
+{
+  "reviewed_on": "2026-10-17",
+  "zip": {
+    "id": "99118",
+    "city": "curlew",
+    "source": "https://www2.census.gov/geo/docs/maps-data/data/gazetteer/2025_Gazetteer/2025_Gaz_zcta_national.zip",
+    "method": "2025 ZCTA internal point; approximate ZIP-area origin, not town center or user location"
+  },
+  "places": [
+    {
+      "id": "curlew-community-food-pantry",
+      "sources": [
+        "https://newhungercoalition.org/food-bank/curlew-community-food-pantry/",
+        "https://search.wa211.org/search/c38967c2-3518-5d35-952c-9ebe4a15cee5",
+        "https://ruralresources.org/wp-content/uploads/2025/08/RRCA-Food-Pantries-7.25.pdf"
+      ],
+      "coordinate_source": "https://geocoding.geo.census.gov/geocoder/locations/onelineaddress?address=10%20S%20Main%20St%2C%20Curlew%2C%20WA%2099118&benchmark=Public_AR_Current&format=json",
+      "coordinate_method": "Census street interpolation; matched 10 MAIN ST, CURLEW WA 99118; entrance not verified",
+      "snap_classification": "Free distribution service, not a SNAP retail purchase; false does not exclude SNAP recipients.",
+      "schedule_caveat": "Weekday filter alone cannot distinguish first/third Thursdays or holidays. Never claim open today from days alone."
+    },
+    {
+      "id": "danville-outpost",
+      "sources": [
+        "https://danvilleoutpost.com/about",
+        "https://services1.arcgis.com/RLQu0rK7h4kbsBq5/arcgis/rest/services/snap_retailer_location_data/FeatureServer/0"
+      ],
+      "coordinate_method": "USDA SNAP retailer point; entrance not verified"
+    },
+    {
+      "id": "ferry-county-coop-republic",
+      "sources": [
+        "https://www.ferrycountynaturalmarket.com/contact---hours.html",
+        "https://www.ferrycountynaturalmarket.com/membership.html",
+        "https://services1.arcgis.com/RLQu0rK7h4kbsBq5/arcgis/rest/services/snap_retailer_location_data/FeatureServer/0"
+      ],
+      "coordinate_method": "USDA SNAP retailer point; entrance not verified",
+      "schedule_caveat": "Seed uses winter schedule applicable October 17. Update for summer; Sunday day filter is winter-specific."
+    }
+  ],
+  "excluded_candidates": [
+    {
+      "name": "Curlew Store",
+      "address": "2 River St, Curlew, WA 99118",
+      "reason": "Local store identified in EWU resource guide, but current hours, coordinates and SNAP acceptance not sufficiently verified. Not in live seed.",
+      "source": "https://in.ewu.edu/earlyheadstart/wp-content/uploads/sites/356/2025/09/Community-Needs-Assessment-2024-EWU-EHS.pdf"
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+[
+  {
+    "_id": "99118",
+    "city": "curlew",
+    "state": "WA",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        -118.637784,
+        48.897363
+      ]
+    }
+  }
+]

@@ -1,0 +1,75 @@
+[
+  {
+    "_id": "curlew-community-food-pantry",
+    "name": "Curlew Community Food Pantry",
+    "kind": "foodbank",
+    "address": "10 S Main St, Curlew, WA 99118",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        -118.598304368039,
+        48.884921200011
+      ]
+    },
+    "hours": "1st and 3rd Thu of each month 9:30am-11am",
+    "days": [
+      "thu"
+    ],
+    "accepts_snap": false,
+    "phone": "+15092070548",
+    "notes": "Free food; no SNAP purchase required. Serves North Ferry County. Walk-ins; closed holidays. Not open every Thursday. Alternate contact: 509-846-3138. Call to confirm.",
+    "region": "rural"
+  },
+  {
+    "_id": "danville-outpost",
+    "name": "Danville Outpost",
+    "kind": "grocery",
+    "address": "19097 N Highway 21, Danville, WA 99121",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        -118.50586,
+        48.996246
+      ]
+    },
+    "hours": "Mon-Sat 10am-5pm",
+    "days": [
+      "mon",
+      "tue",
+      "wed",
+      "thu",
+      "fri",
+      "sat"
+    ],
+    "accepts_snap": true,
+    "phone": "+15097790146",
+    "notes": "General store with groceries; located in Danville, outside ZIP 99118. SNAP retailer listed by USDA. Closed Sunday.",
+    "region": "rural"
+  },
+  {
+    "_id": "ferry-county-coop-republic",
+    "name": "Ferry County Co-op",
+    "kind": "grocery",
+    "address": "34 N Clark Ave, Republic, WA 99166",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        -118.73804,
+        48.64809
+      ]
+    },
+    "hours": "Winter: Mon-Fri 9am-6pm; Sat 10am-4pm; Sun closed",
+    "days": [
+      "mon",
+      "tue",
+      "wed",
+      "thu",
+      "fri",
+      "sat"
+    ],
+    "accepts_snap": true,
+    "phone": "+15097753754",
+    "notes": "In Republic, outside ZIP 99118. Winter hours start first Monday in October. Summer hours differ, including Sunday opening; call to confirm. No membership required to shop. Closed New Year's Day, Thanksgiving and Christmas.",
+    "region": "rural"
+  }
+]
