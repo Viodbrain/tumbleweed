@@ -1,6 +1,6 @@
 """Runs the 15 eval cases through reply(). Usage, from backend/: uv run python -m evals.run
 
-Needs ANTHROPIC_API_KEY and MONGODB_URI (B's Atlas, or a local mongo:7).
+Needs ANTHROPIC_API_KEY and MONGODB_URI (B's Atlas, or a local mongo:7), loaded via app.config.
 """
 
 from __future__ import annotations
@@ -15,15 +15,16 @@ import time
 from pathlib import Path
 from typing import Any
 
-from dotenv import load_dotenv
+from app.config import load_environment
 
 HERE = Path(__file__).parent
-load_dotenv(HERE.parent / ".env")
+load_environment()
 
 PLACEHOLDERS = {
-    "{RURAL_ZIP}": os.getenv("EVAL_RURAL_ZIP", "98841"),
-    "{RURAL_TOWN}": os.getenv("EVAL_RURAL_TOWN", "Omak"),
-    "{SEATTLE_ZIP}": os.getenv("EVAL_SEATTLE_ZIP", "98101"),
+    "{RURAL_ZIP}": os.getenv("EVAL_RURAL_ZIP", "99344"),
+    "{RURAL_TOWN}": os.getenv("EVAL_RURAL_TOWN", "Othello"),
+    # Seattle data isn't loaded yet; set EVAL_SEATTLE_ZIP=98101 once it is.
+    "{SEATTLE_ZIP}": os.getenv("EVAL_SEATTLE_ZIP", "99344"),
 }
 EMOJI = re.compile("[\U0001f000-\U0001faff⌀-⏿☀-➿⬀-⯿]")
 MARKDOWN = re.compile(r"\*\*|__|^\s*[-*•]\s", re.MULTILINE)

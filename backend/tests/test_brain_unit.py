@@ -109,7 +109,7 @@ def test_fast_path_no_places_suggests_211():
 
 def test_fast_path_one_place():
     r = fast_path_reply("98841", [place()])
-    assert r.startswith("Food near 98841:\n1. Hope Pantry, 1.2 mi, Tue/Thu 10am-2pm")
+    assert r.startswith("Food near 98841 (miles from town center):\n1. Hope Pantry, 1.2 mi, Tue/Thu 10am-2pm")
     assert "\n2." not in r
     assert len(r) <= 300
 
@@ -142,7 +142,7 @@ def test_fast_path_long_names_stay_within_limit():
     ]
     r = fast_path_reply("98841", places)
     assert len(r) <= 300
-    assert r.startswith("Food near 98841:\n1. ")
+    assert r.startswith("Food near 98841 (miles from town center):\n1. ")
 
 
 def test_fast_path_strips_emojis_from_data():
