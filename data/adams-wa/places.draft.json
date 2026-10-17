@@ -1,0 +1,128 @@
+{
+  "status": "research_draft_do_not_import",
+  "reviewed_on": "2026-10-17",
+  "places": [
+    {
+      "record": {
+        "_id": "othello-food-bank",
+        "name": "Othello Food Bank",
+        "kind": "foodbank",
+        "address": "949 E Main St, Othello, WA 99344",
+        "location": {
+          "type": "Point",
+          "coordinates": [
+            -119.161263021466,
+            46.826247287234
+          ]
+        },
+        "hours": "Mon-Wed 1pm-4pm; Thu 10am-1pm for enrolled senior-program participants only",
+        "days": [
+          "mon",
+          "tue",
+          "wed"
+        ],
+        "accepts_snap": null,
+        "phone": "+15094886044",
+        "notes": "One food box per household per week. Bring photo ID and an address if available. Thursday pickup is restricted to enrolled senior-program participants.",
+        "region": "rural"
+      },
+      "sources": [
+        "https://othellofood.org/",
+        "https://search.wa211.org/search/14d495ee-dc30-5b8c-ad56-325540bb9ad0?entry=search_card",
+        "https://www.cceasternwa.org/parish-social-ministry"
+      ],
+      "pending": [
+        "Resolve SNAP field before converting to shared Place schema; free distribution is distinct from SNAP retail acceptance.",
+        "Verify public entrance before claiming entrance-accurate driving directions."
+      ],
+      "address_verification": {
+        "method": "user confirmation in chat",
+        "address": "949 E Main St, Othello, WA 99344"
+      },
+      "coordinate_verification": {
+        "status": "source_matched",
+        "source": "https://geocoding.geo.census.gov/geocoder/locations/onelineaddress?address=949%20E%20Main%20St%2C%20Othello%2C%20WA%2099344&benchmark=Public_AR_Current&format=json",
+        "method": "Census street-address interpolation",
+        "entrance_verified": false
+      }
+    },
+    {
+      "record": {
+        "_id": "walmart-3217-othello",
+        "name": "Walmart Supercenter #3217",
+        "kind": "grocery",
+        "address": "1860 E Main St, Othello, WA 99344",
+        "location": {
+          "type": "Point",
+          "coordinates": [
+            -119.14788,
+            46.824165
+          ]
+        },
+        "hours": "Daily 6am-11pm",
+        "days": [
+          "mon",
+          "tue",
+          "wed",
+          "thu",
+          "fri",
+          "sat",
+          "sun"
+        ],
+        "accepts_snap": true,
+        "phone": "+15094889295",
+        "notes": "SNAP EBT accepted for eligible groceries. Delivery has fees; availability depends on address.",
+        "region": "rural"
+      },
+      "sources": [
+        "https://www.walmart.com/store/3217-othello-wa",
+        "https://www.walmart.com/store/3217-othello-wa/shopping-services",
+        "https://services1.arcgis.com/RLQu0rK7h4kbsBq5/arcgis/rest/services/snap_retailer_location_data/FeatureServer/0"
+      ],
+      "pending": [
+        "Verify public entrance before claiming entrance-accurate driving directions."
+      ],
+      "coordinate_verification": {
+        "status": "source_matched",
+        "source": "https://services1.arcgis.com/RLQu0rK7h4kbsBq5/arcgis/rest/services/snap_retailer_location_data/FeatureServer/0",
+        "method": "USDA SNAP retailer point",
+        "entrance_verified": false
+      }
+    },
+    {
+      "record": {
+        "_id": "lep-re-kon-othello",
+        "name": "Lep-Re-Kon Harvest Foods",
+        "kind": "grocery",
+        "address": "1115 E Main St, Othello, WA 99344",
+        "location": {
+          "type": "Point",
+          "coordinates": [
+            -119.15862,
+            46.826599
+          ]
+        },
+        "hours": "6am-10pm; confirm days",
+        "days": [],
+        "accepts_snap": true,
+        "phone": "+15094889992",
+        "notes": null,
+        "region": "rural"
+      },
+      "sources": [
+        "https://harvestfoodsnwdata.shoptocook.com/harvestfoods/locationdetails.jsp?storeid=212",
+        "https://services1.arcgis.com/RLQu0rK7h4kbsBq5/arcgis/rest/services/snap_retailer_location_data/FeatureServer/0"
+      ],
+      "pending": [
+        "Confirm weekly open days.",
+        "Verify public entrance before claiming entrance-accurate driving directions."
+      ],
+      "coordinate_verification": {
+        "status": "source_matched",
+        "source": "https://services1.arcgis.com/RLQu0rK7h4kbsBq5/arcgis/rest/services/snap_retailer_location_data/FeatureServer/0",
+        "method": "USDA SNAP retailer point",
+        "entrance_verified": false
+      }
+    }
+  ]
+}
