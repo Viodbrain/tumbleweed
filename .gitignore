@@ -1,0 +1,36 @@
+# Local environment variables and secrets
+.env*
+!.env.example
+
+# Python environments and caches
+.venv/
+venv/
+env/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+*.egg-info/
+
+# Node.js and Next.js
+node_modules/
+.next/
+out/
+dist/
+build/
+next-env.d.ts
+*.tsbuildinfo
+
+# Test coverage and logs
+coverage/
+.coverage
+htmlcov/
+*.log
+
+# Local deployment configuration
+.vercel/
+
+# Operating system files
+.DS_Store
+Thumbs.db
