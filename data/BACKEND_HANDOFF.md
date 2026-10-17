@@ -9,13 +9,14 @@ python3 -m venv .venv
 .venv/bin/python -m pip install -r scripts/requirements.txt
 ```
 
-Set `MONGODB_URI` and `MONGODB_DB=tumbleweed` privately in `.env.local`, or in
+Set `MONGODB_URI` and `MONGODB_DB=tumbleweed` privately in `backend/.env`, or in
 the deployment environment. Deployment variables take priority. Ensure Atlas
 allows the backend host's IP. Never commit the URI or include it in error logs.
 
 ```sh
 .venv/bin/python -m scripts.setup_indexes --apply
-.venv/bin/python scripts/test_mongodb.py
+.venv/bin/python -m scripts.seed_adams --apply
+.venv/bin/python -m scripts.test_mongodb
 .venv/bin/python -m scripts.find_food --zip 99344 --snap
 .venv/bin/python -m scripts.list_events --zip 99344
 ```
@@ -35,7 +36,7 @@ point = await resolve_point(city="othello")
 The production functions live in `backend/app/data.py` and are asynchronous,
 matching the brain already on main. Run the backend from `backend/` so its `app`
 package resolves. Use `get_db()` for the shared async cached connection.
-The older synchronous `lib/` helpers are for the standalone root scripts only.
+All CLI scripts reuse this same async implementation; the duplicate sync layer was removed.
 The brain still owns user
 and message writes, subscription commands, conversation memory, and reply text.
 
@@ -76,8 +77,22 @@ error reply. An outage must not be presented as no resources available.
   backend scaffold pulled from main (8d23efe). No shared models or AI files were changed.
 
 Reviewed seed data and provenance are in `data/adams-wa/`. Re-running
-`scripts/seed_adams.py --apply` upserts only the listed records and does not delete
+`python -m scripts.seed_adams --apply` upserts only the listed records and does not delete
 other data. `data/adams-wa/places.draft.json` is research, never a live seed file.
 
-MongoDB config precedence: deployed environment, backend/.env.local, backend/.env,
-then root .env.local. Existing standalone scripts still use root .env.local.
+Configuration is loaded once through `backend/app/config.py`:
+process environment > `backend/.env` > legacy root `.env.local`.
+Use only `backend/.env` for new local setups. Do not create `.env.local` variants;
+the root fallback only supports migration. The backend and every database CLI use
+this loader. Share secrets privately, never in source control or review comments.
+The database client and database name are cached after the first connection.
+
+Index setup includes unique `users.handle`, message history/feed indexes, and
+`webhook_events.received_at`; the webhook message ID uses MongoDB's automatic
+unique `_id` index. No TTL policy is imposed. Existing duplicate user handles
+must be resolved before the unique index can be created.
+
+Data coverage expansion is a separate follow-up: load a sourced full WA ZIP
+lookup, verified food-bank data, a current real event, and Seattle resources.
+Current coverage does not support those demo scenarios yet. No additional
+records are implied by the code fixes in this PR.

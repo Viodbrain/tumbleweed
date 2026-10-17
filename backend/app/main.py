@@ -5,9 +5,9 @@ from __future__ import annotations
 import logging
 import os
 
-from dotenv import load_dotenv
+from app.config import load_environment
 
-load_dotenv()
+load_environment()
 
 from fastapi import FastAPI  # noqa: E402
 from fastapi.middleware.cors import CORSMiddleware  # noqa: E402

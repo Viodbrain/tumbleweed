@@ -38,11 +38,11 @@
         46.826599
       ]
     },
-    "hours": "6am-10pm; confirm days",
+    "hours": "6am-10pm",
     "days": [],
     "accepts_snap": true,
     "phone": "+15094889992",
-    "notes": null,
+    "notes": "Weekly open days are unverified; call to confirm.",
     "region": "rural"
   }
 ]

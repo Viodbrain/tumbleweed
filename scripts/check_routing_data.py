@@ -30,7 +30,9 @@ def main():
             issues.append("missing or invalid destination coordinates")
         if issues:
             incomplete += 1
-        print(f"{record['name']}: {', '.join(issues) if issues else 'routing fields present; verify entrance accuracy'}")
+        print(
+            f"{record['name']}: {', '.join(issues) if issues else 'routing fields present; verify entrance accuracy'}"
+        )
     print(f"{len(places) - incomplete}/{len(places)} destinations have routing fields present.")
     return 1 if incomplete else 0
 

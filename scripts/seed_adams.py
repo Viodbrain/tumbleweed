@@ -1,17 +1,22 @@
 """Validate reviewed data; pass --apply to upsert it into Atlas."""
+# ruff: noqa: I001
 
 import argparse
+import asyncio
 import json
 from pathlib import Path
 
-from dotenv import dotenv_values
-from pymongo import MongoClient, UpdateOne
+from pymongo import UpdateOne
 from pymongo.errors import PyMongoError
 
-from check_routing_data import valid_point
+from scripts import _backend  # noqa: F401
+
+from app.db import close_db, get_db
+from scripts.check_routing_data import valid_point
+from scripts.setup_indexes import apply_indexes
 
 
-def main():
+async def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--apply", action="store_true")
     args = parser.parse_args()
@@ -30,7 +35,15 @@ def main():
             if collection == "places":
                 if not record.get("address") or type(record.get("accepts_snap")) is not bool:
                     raise ValueError(f"Incomplete place: {identifier}")
-                if not isinstance(record.get("days"), list) or not set(record["days"]) <= {"mon", "tue", "wed", "thu", "fri", "sat", "sun"}:
+                if not isinstance(record.get("days"), list) or not set(record["days"]) <= {
+                    "mon",
+                    "tue",
+                    "wed",
+                    "thu",
+                    "fri",
+                    "sat",
+                    "sun",
+                }:
                     raise ValueError(f"Invalid open days: {identifier}")
             elif not (len(identifier) == 5 and identifier.isdigit() and record.get("city") and record.get("state")):
                 raise ValueError(f"Incomplete ZIP: {identifier}")
@@ -39,40 +52,52 @@ def main():
     if not args.apply:
         print("Dry run only. Pass --apply to load these records and create indexes.")
         return 0
-    config = dotenv_values(root / ".env.local")
-    uri = config.get("MONGODB_URI")
-    if not uri:
-        print("Missing MONGODB_URI in .env.local")
-        return 1
     try:
-        with MongoClient(uri, serverSelectionTimeoutMS=10000, connectTimeoutMS=10000) as client:
-            db = client[config.get("MONGODB_DB") or "tumbleweed"]
-            for collection, records in datasets.items():
-                if records:
-                    result = db[collection].bulk_write([
+        db = get_db()
+        for collection, records in datasets.items():
+            if records:
+                result = await db[collection].bulk_write(
+                    [
                         UpdateOne({"_id": r["_id"]}, {"$set": {k: v for k, v in r.items() if k != "_id"}}, upsert=True)
                         for r in records
-                    ])
-                    print(f"{collection}: inserted {result.upserted_count}, matched {result.matched_count}, modified {result.modified_count}.")
-            db.places.create_index([("location", "2dsphere")])
-            db.places.create_index("region")
-            db.zips.create_index([("location", "2dsphere")])
-            db.zips.create_index("city")
-            origin = db.zips.find_one({"_id": "99344"})["location"]
-            nearby = list(db.places.aggregate([
-                {"$geoNear": {"near": origin, "key": "location", "distanceField": "distance_m", "maxDistance": 40 * 1609.344, "spherical": True, "query": {"_id": {"$in": [r["_id"] for r in datasets["places"]]}, "accepts_snap": True}}},
-                {"$limit": 3},
-            ]))
-            if len(nearby) != len(datasets["places"]):
-                raise ValueError("Nearby lookup did not return all seeded places.")
-            for place in nearby:
-                print(f"Verified nearby: {place['name']} ({place['distance_m'] / 1609.344:.2f} straight-line miles)")
-            print("Atlas seed and nearby search verification succeeded.")
+                    ]
+                )
+                print(
+                    f"{collection}: inserted {result.upserted_count}, matched {result.matched_count}, "
+                    f"modified {result.modified_count}."
+                )
+        await apply_indexes(db)
+        origin = (await db.zips.find_one({"_id": "99344"}))["location"]
+        cursor = await db.places.aggregate(
+            [
+                {
+                    "$geoNear": {
+                        "near": origin,
+                        "key": "location",
+                        "distanceField": "distance_m",
+                        "maxDistance": 40 * 1609.344,
+                        "spherical": True,
+                        "query": {"_id": {"$in": [r["_id"] for r in datasets["places"]]}},
+                    }
+                },
+            ]
+        )
+        nearby = await cursor.to_list(length=None)
+        if len(nearby) != len(datasets["places"]):
+            raise ValueError("Nearby lookup did not return all seeded places.")
+        for place in nearby:
+            print(f"Verified nearby: {place['name']} ({place['distance_m'] / 1609.344:.2f} straight-line miles)")
+        print("Atlas seed and nearby search verification succeeded.")
         return 0
-    except PyMongoError as exc:
-        print(f"Atlas operation failed ({type(exc).__name__}). Credentials were not printed. Some writes may have completed; rerunning is safe.")
-        return 1
+    except (PyMongoError, RuntimeError) as exc:
+        print(
+            f"Atlas operation failed ({type(exc).__name__}). Credentials were not printed. "
+            "Some writes may have completed; rerunning is safe."
+        )
+    finally:
+        await close_db()
+    return 1
 
 
 if __name__ == "__main__":
-    raise SystemExit(main())
+    raise SystemExit(asyncio.run(main()))

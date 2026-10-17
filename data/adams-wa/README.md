@@ -50,7 +50,7 @@ travel mode, and routing options and are not permanent attributes of a place.
 Keep MongoDB straight-line distance distinct from Google driving distance in
 the eventual response contract; coordinate that contract with the AI owner.
 
-Run `.venv/bin/python scripts/check_routing_data.py` to check destination
+Run `.venv/bin/python -m scripts.check_routing_data` to check destination
 readiness. This reads local files only and does not call Google or modify Atlas.
 
 Walmart's store-specific page supports its SNAP eligibility, hours, address, and
@@ -81,29 +81,15 @@ both collections, plus city and region indexes. A 40-mile SNAP-filtered search
 returned Lep-Re-Kon (about 0.79 straight-line miles) and Walmart (about 1.30)
 from the Othello town point.
 
-To validate locally: `.venv/bin/python scripts/seed_adams.py`.
-To upsert the reviewed records again: `.venv/bin/python scripts/seed_adams.py --apply`.
+To validate locally: `.venv/bin/python -m scripts.seed_adams`.
+To upsert the reviewed records again: `.venv/bin/python -m scripts.seed_adams --apply`.
 The script updates only the listed IDs and does not delete other records.
 
-Python lookup is implemented in `lib/db.py` and `lib/data.py`. From the repo
-root, install `scripts/requirements.txt` into your virtual environment, then run:
-
-```sh
-.venv/bin/python -m scripts.find_food --zip 99344 --snap
-.venv/bin/python -m scripts.find_food --city othello --day sat
-```
-
-Backend integration: `from lib.data import find_food, resolve_point`.
-Both functions take keyword arguments. `find_food` returns full place dictionaries
-plus `distance_mi` (straight-line), sorted nearest first, within 40 miles. It
-defaults to three results; current coverage has only two places. ZIP coordinates
-are approximate. Unknown weekly days are excluded by day filters. These are
-synchronous PyMongo functions; asynchronous callers should run them in a thread.
-Database errors propagate for the brain to handle rather than looking like an
-empty search. No HTTP endpoint or TypeScript adapter has been added.
-
-Verified against Atlas: ZIP search, normalized city search, SNAP filter, Saturday
-filter, and unknown ZIP. Invalid coordinates are rejected locally.
+Production lookups and CLI commands share the async implementation in
+`backend/app/data.py`. See `data/BACKEND_HANDOFF.md` for setup and examples.
+All database configuration uses the shared loader with process environment,
+then `backend/.env`, then the legacy root `.env.local` fallback. Events use UTC
+BSON dates. The sync `lib/` copy was removed.
 
 Remaining work: resolve food-bank SNAP representation, confirm Harvest Foods'
 weekly days, verify entrances, and implement upcoming-event lookup.
