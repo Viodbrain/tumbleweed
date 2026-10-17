@@ -182,7 +182,7 @@ def fast_path_reply(
 ) -> str:
     if not places:
         return f"I couldn't find free food or groceries within 40 miles of {zip}. Call 2-1-1 for local food help."
-    header = f"Food near {zip}:"
+    header = f"Food near {zip} (miles from town center):"
     footer = "Reply with any question, in any language."
     # Prefer 3 full lines; shorten names, then drop places, until it fits.
     for count in range(min(3, len(places)), 0, -1):
@@ -293,7 +293,9 @@ async def _run_tool(name: str, raw: dict[str, Any]) -> tuple[str, bool]:
             args = FindFoodArgs.model_validate(raw)
             args.limit = min(max(args.limit, 1), 5)
             places = await data.find_food(args)
-            found = [p.model_dump(mode="json", by_alias=True) for p in places]
+            found = [
+                p.model_dump(mode="json", by_alias=True) | {"distance_mi": round(p.distance_mi, 1)} for p in places
+            ]
             last_tool_results.extend(found)
             if not found:
                 return json.dumps(
