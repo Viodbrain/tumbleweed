@@ -1,3 +1,10 @@
+## County-wide expansion
+
+The dataset now includes 11 Census ZIP areas and 11 resources.
+See `../COUNTY_COVERAGE.md` for the geographic scope and limitations, and
+`county-sources.json` for each new record's provenance. The material below
+records the original Othello/Curlew rollout; its resource counts are historical.
+
 # Adams County, Washington: initial Othello dataset
 
 Prepared October 17, 2026. Target ZIP: 99344. Loaded the reviewed ZIP and two

@@ -10,5 +10,101 @@
         48.897363
       ]
     }
+  },
+  {
+    "_id": "99121",
+    "city": "danville",
+    "state": "WA",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        -118.467827,
+        48.934602
+      ]
+    }
+  },
+  {
+    "_id": "99138",
+    "city": "inchelium",
+    "state": "WA",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        -118.390882,
+        48.231375
+      ]
+    }
+  },
+  {
+    "_id": "99140",
+    "city": "keller",
+    "state": "WA",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        -118.646173,
+        48.111429
+      ]
+    }
+  },
+  {
+    "_id": "99141",
+    "city": "kettle falls",
+    "state": "WA",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        -118.167964,
+        48.717122
+      ]
+    }
+  },
+  {
+    "_id": "99146",
+    "city": "laurier",
+    "state": "WA",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        -118.29774,
+        48.957496
+      ]
+    }
+  },
+  {
+    "_id": "99150",
+    "city": "malo",
+    "state": "WA",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        -118.610771,
+        48.806233
+      ]
+    }
+  },
+  {
+    "_id": "99160",
+    "city": "orient",
+    "state": "WA",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        -118.301224,
+        48.868941
+      ]
+    }
+  },
+  {
+    "_id": "99166",
+    "city": "republic",
+    "state": "WA",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        -118.667275,
+        48.608711
+      ]
+    }
   }
 ]

@@ -1,0 +1,228 @@
+{
+  "reviewed_on": "2026-10-17",
+  "scope": "2020 Census ZCTA/county intersections, with 2025 internal points. Cross-county ZIP areas included; not an exhaustive current USPS PO-box ZIP inventory.",
+  "zips": [
+    {
+      "id": "98832",
+      "county_fips": "53001",
+      "county": "Adams County",
+      "county_land_share_of_zcta": 0.010365,
+      "relationship_source": "https://www2.census.gov/geo/docs/maps-data/data/rel2020/zcta520/tab20_zcta520_county20_natl.txt",
+      "coordinate_source": "https://www2.census.gov/geo/docs/maps-data/data/gazetteer/2025_Gazetteer/2025_Gaz_zcta_national.zip",
+      "coordinate_method": "Census ZCTA internal point",
+      "postal_name_source": "https://download.geonames.org/export/zip/US.zip"
+    },
+    {
+      "id": "98857",
+      "county_fips": "53001",
+      "county": "Adams County",
+      "county_land_share_of_zcta": 0.313685,
+      "relationship_source": "https://www2.census.gov/geo/docs/maps-data/data/rel2020/zcta520/tab20_zcta520_county20_natl.txt",
+      "coordinate_source": "https://www2.census.gov/geo/docs/maps-data/data/gazetteer/2025_Gazetteer/2025_Gaz_zcta_national.zip",
+      "coordinate_method": "Census ZCTA internal point",
+      "postal_name_source": "https://download.geonames.org/export/zip/US.zip"
+    },
+    {
+      "id": "99032",
+      "county_fips": "53001",
+      "county": "Adams County",
+      "county_land_share_of_zcta": 0.120494,
+      "relationship_source": "https://www2.census.gov/geo/docs/maps-data/data/rel2020/zcta520/tab20_zcta520_county20_natl.txt",
+      "coordinate_source": "https://www2.census.gov/geo/docs/maps-data/data/gazetteer/2025_Gazetteer/2025_Gaz_zcta_national.zip",
+      "coordinate_method": "Census ZCTA internal point",
+      "postal_name_source": "https://download.geonames.org/export/zip/US.zip"
+    },
+    {
+      "id": "99105",
+      "county_fips": "53001",
+      "county": "Adams County",
+      "county_land_share_of_zcta": 1.0,
+      "relationship_source": "https://www2.census.gov/geo/docs/maps-data/data/rel2020/zcta520/tab20_zcta520_county20_natl.txt",
+      "coordinate_source": "https://www2.census.gov/geo/docs/maps-data/data/gazetteer/2025_Gazetteer/2025_Gaz_zcta_national.zip",
+      "coordinate_method": "Census ZCTA internal point",
+      "postal_name_source": "https://download.geonames.org/export/zip/US.zip"
+    },
+    {
+      "id": "99159",
+      "county_fips": "53001",
+      "county": "Adams County",
+      "county_land_share_of_zcta": 0.322228,
+      "relationship_source": "https://www2.census.gov/geo/docs/maps-data/data/rel2020/zcta520/tab20_zcta520_county20_natl.txt",
+      "coordinate_source": "https://www2.census.gov/geo/docs/maps-data/data/gazetteer/2025_Gazetteer/2025_Gaz_zcta_national.zip",
+      "coordinate_method": "Census ZCTA internal point",
+      "postal_name_source": "https://download.geonames.org/export/zip/US.zip"
+    },
+    {
+      "id": "99169",
+      "county_fips": "53001",
+      "county": "Adams County",
+      "county_land_share_of_zcta": 0.927122,
+      "relationship_source": "https://www2.census.gov/geo/docs/maps-data/data/rel2020/zcta520/tab20_zcta520_county20_natl.txt",
+      "coordinate_source": "https://www2.census.gov/geo/docs/maps-data/data/gazetteer/2025_Gazetteer/2025_Gaz_zcta_national.zip",
+      "coordinate_method": "Census ZCTA internal point",
+      "postal_name_source": "https://download.geonames.org/export/zip/US.zip"
+    },
+    {
+      "id": "99326",
+      "county_fips": "53001",
+      "county": "Adams County",
+      "county_land_share_of_zcta": 0.121344,
+      "relationship_source": "https://www2.census.gov/geo/docs/maps-data/data/rel2020/zcta520/tab20_zcta520_county20_natl.txt",
+      "coordinate_source": "https://www2.census.gov/geo/docs/maps-data/data/gazetteer/2025_Gazetteer/2025_Gaz_zcta_national.zip",
+      "coordinate_method": "Census ZCTA internal point",
+      "postal_name_source": "https://download.geonames.org/export/zip/US.zip"
+    },
+    {
+      "id": "99333",
+      "county_fips": "53001",
+      "county": "Adams County",
+      "county_land_share_of_zcta": 0.111681,
+      "relationship_source": "https://www2.census.gov/geo/docs/maps-data/data/rel2020/zcta520/tab20_zcta520_county20_natl.txt",
+      "coordinate_source": "https://www2.census.gov/geo/docs/maps-data/data/gazetteer/2025_Gazetteer/2025_Gaz_zcta_national.zip",
+      "coordinate_method": "Census ZCTA internal point",
+      "postal_name_source": "https://download.geonames.org/export/zip/US.zip"
+    },
+    {
+      "id": "99341",
+      "county_fips": "53001",
+      "county": "Adams County",
+      "county_land_share_of_zcta": 1.0,
+      "relationship_source": "https://www2.census.gov/geo/docs/maps-data/data/rel2020/zcta520/tab20_zcta520_county20_natl.txt",
+      "coordinate_source": "https://www2.census.gov/geo/docs/maps-data/data/gazetteer/2025_Gazetteer/2025_Gaz_zcta_national.zip",
+      "coordinate_method": "Census ZCTA internal point",
+      "postal_name_source": "https://download.geonames.org/export/zip/US.zip"
+    },
+    {
+      "id": "99344",
+      "county_fips": "53001",
+      "county": "Adams County",
+      "county_land_share_of_zcta": 0.650105,
+      "relationship_source": "https://www2.census.gov/geo/docs/maps-data/data/rel2020/zcta520/tab20_zcta520_county20_natl.txt",
+      "coordinate_source": "https://www.geonames.org/5805879/othello.html",
+      "coordinate_method": "Previously verified town point, preserved for compatibility",
+      "postal_name_source": "https://download.geonames.org/export/zip/US.zip"
+    },
+    {
+      "id": "99371",
+      "county_fips": "53001",
+      "county": "Adams County",
+      "county_land_share_of_zcta": 0.789878,
+      "relationship_source": "https://www2.census.gov/geo/docs/maps-data/data/rel2020/zcta520/tab20_zcta520_county20_natl.txt",
+      "coordinate_source": "https://www2.census.gov/geo/docs/maps-data/data/gazetteer/2025_Gazetteer/2025_Gaz_zcta_national.zip",
+      "coordinate_method": "Census ZCTA internal point",
+      "postal_name_source": "https://download.geonames.org/export/zip/US.zip"
+    }
+  ],
+  "places": [
+    {
+      "id": "la-mexicana-othello",
+      "sources": [
+        "https://services1.arcgis.com/RLQu0rK7h4kbsBq5/arcgis/rest/services/snap_retailer_location_data/FeatureServer/0"
+      ],
+      "coordinate_method": "USDA retailer point; public entrance not verified",
+      "unknown_fields": [
+        "hours",
+        "days",
+        "phone"
+      ]
+    },
+    {
+      "id": "el-jazmin-othello",
+      "sources": [
+        "https://services1.arcgis.com/RLQu0rK7h4kbsBq5/arcgis/rest/services/snap_retailer_location_data/FeatureServer/0"
+      ],
+      "coordinate_method": "USDA retailer point; public entrance not verified",
+      "unknown_fields": [
+        "hours",
+        "days",
+        "phone"
+      ]
+    },
+    {
+      "id": "jims-market-lind",
+      "sources": [
+        "https://services1.arcgis.com/RLQu0rK7h4kbsBq5/arcgis/rest/services/snap_retailer_location_data/FeatureServer/0"
+      ],
+      "coordinate_method": "USDA retailer point; public entrance not verified",
+      "unknown_fields": [
+        "hours",
+        "days",
+        "phone"
+      ]
+    },
+    {
+      "id": "akins-fresh-market-ritzville",
+      "sources": [
+        "https://services1.arcgis.com/RLQu0rK7h4kbsBq5/arcgis/rest/services/snap_retailer_location_data/FeatureServer/0",
+        "https://www.akinsmarket.com/locations.html"
+      ],
+      "coordinate_method": "USDA retailer point; public entrance not verified",
+      "unknown_fields": []
+    },
+    {
+      "id": "mi-casa-market-othello",
+      "sources": [
+        "https://services1.arcgis.com/RLQu0rK7h4kbsBq5/arcgis/rest/services/snap_retailer_location_data/FeatureServer/0"
+      ],
+      "coordinate_method": "USDA retailer point; public entrance not verified",
+      "unknown_fields": [
+        "hours",
+        "days",
+        "phone"
+      ]
+    },
+    {
+      "id": "ritzville-food-pantry",
+      "sources": [
+        "https://www.cityofritzville.com/copy-of-about-ritzville",
+        "https://search.wa211.org/search/518157e8-7bb5-5ade-a49c-38443f8086a1"
+      ],
+      "coordinate_method": "Census address interpolation; entrance not verified",
+      "unknown_fields": [],
+      "coordinate_source": "https://geocoding.geo.census.gov/geocoder/locations/onelineaddress?address=104+W+Main+Ave%2C+Ritzville%2C+WA+99169&benchmark=Public_AR_Current&format=json",
+      "matched_address": "104 W MAIN AVE, RITZVILLE, WA, 99169"
+    },
+    {
+      "id": "lind-food-pantry",
+      "sources": [
+        "https://www.dshs.wa.gov/node/40741"
+      ],
+      "coordinate_method": "Census address interpolation; entrance not verified",
+      "unknown_fields": [
+        "hours",
+        "phone",
+        "days"
+      ],
+      "coordinate_source": "https://geocoding.geo.census.gov/geocoder/locations/onelineaddress?address=219+W+3rd+Ave%2C+Lind%2C+WA+99341&benchmark=Public_AR_Current&format=json",
+      "matched_address": "219 W 3RD ST, LIND, WA, 99341"
+    },
+    {
+      "id": "washtucna-food-pantry",
+      "sources": [
+        "https://www.washtucnahistory.org/",
+        "https://members.wafoodcoalition.org/active-member-directory/FindStartsWith?term=%23%21"
+      ],
+      "coordinate_method": "Census address interpolation; entrance not verified",
+      "unknown_fields": [
+        "hours",
+        "days"
+      ],
+      "coordinate_source": "https://geocoding.geo.census.gov/geocoder/locations/onelineaddress?address=287+S+Main+St%2C+Washtucna%2C+WA+99371&benchmark=Public_AR_Current&format=json",
+      "matched_address": "287 S MAIN ST, WASHTUCNA, WA, 99371"
+    }
+  ],
+  "excluded": [
+    {
+      "codes": [
+        "99107",
+        "99327",
+        "99332"
+      ],
+      "reason": "Historical or unverified postal codes absent from the chosen Census ZCTA scope. Not loaded as current search origins."
+    },
+    {
+      "resource": "Inchelium Senior Meal Site",
+      "reason": "Address/program verified, but reliable stored coordinate pending. Not loaded."
+    }
+  ]
+}

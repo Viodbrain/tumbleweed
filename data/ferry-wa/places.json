@@ -71,5 +71,211 @@
     "phone": "+15097753754",
     "notes": "In Republic, outside ZIP 99118. Winter hours start first Monday in October. Summer hours differ, including Sunday opening; call to confirm. No membership required to shop. Closed New Year's Day, Thanksgiving and Christmas.",
     "region": "rural"
+  },
+  {
+    "_id": "keller-community-store",
+    "name": "Keller Community Store",
+    "kind": "grocery",
+    "address": "11611 WA-21, Keller, WA 99140",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        -118.6835884,
+        48.0774877
+      ]
+    },
+    "hours": "Daily 7am-8pm",
+    "days": [
+      "mon",
+      "tue",
+      "wed",
+      "thu",
+      "fri",
+      "sat",
+      "sun"
+    ],
+    "accepts_snap": true,
+    "phone": "+15096344632",
+    "notes": "Current address and mapped point from the tribal operator; USDA uses an older street-address label for this SNAP retailer. Call before travel.",
+    "region": "rural"
+  },
+  {
+    "_id": "andersons-grocery-republic",
+    "name": "Anderson's Grocery",
+    "kind": "grocery",
+    "address": "711 S Clark Ave, Republic, WA 99166",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        -118.73833,
+        48.646545
+      ]
+    },
+    "hours": null,
+    "days": [],
+    "accepts_snap": true,
+    "phone": null,
+    "notes": "SNAP-authorized retailer listed by USDA. Hours and contact details not independently verified.",
+    "region": "rural"
+  },
+  {
+    "_id": "inchelium-community-store",
+    "name": "Inchelium Community Store",
+    "kind": "grocery",
+    "address": "38 Short Cut Rd, Inchelium, WA 99138",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        -118.205366,
+        48.2966295
+      ]
+    },
+    "hours": "Mon-Fri 7am-8pm; Sat-Sun 7am-7pm",
+    "days": [
+      "mon",
+      "tue",
+      "wed",
+      "thu",
+      "fri",
+      "sat",
+      "sun"
+    ],
+    "accepts_snap": true,
+    "phone": "+15097223305",
+    "notes": "Current address and mapped point from the tribal operator; USDA uses an older street-address label for this SNAP retailer. Call before travel.",
+    "region": "rural"
+  },
+  {
+    "_id": "republic-market",
+    "name": "Republic Market",
+    "kind": "grocery",
+    "address": "970 S Clark Ave, Republic, WA 99166",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        -118.7374,
+        48.643978
+      ]
+    },
+    "hours": null,
+    "days": [],
+    "accepts_snap": true,
+    "phone": null,
+    "notes": "SNAP-authorized retailer listed by USDA. Hours and contact details not independently verified.",
+    "region": "rural"
+  },
+  {
+    "_id": "essentials-general-store-orient",
+    "name": "Essentials General Store",
+    "kind": "grocery",
+    "address": "365 Main St, Orient, WA 99160",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        -118.20492,
+        48.866428
+      ]
+    },
+    "hours": null,
+    "days": [],
+    "accepts_snap": true,
+    "phone": "+15096845644",
+    "notes": "SNAP-authorized general store. Hosts Orient Food Pantry as a separate free service. Retail hours unverified; pantry hours must not be treated as store hours.",
+    "region": "rural"
+  },
+  {
+    "_id": "peoples-pantry-republic",
+    "name": "People's Pantry of Ferry County",
+    "kind": "foodbank",
+    "address": "925 S Keller St, Republic, WA 99166",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        -118.736482715752,
+        48.644687578254
+      ]
+    },
+    "hours": "Sun 1:30pm-3:30pm",
+    "days": [
+      "sun"
+    ],
+    "accepts_snap": false,
+    "phone": "+15097753923",
+    "notes": "Free food distribution; no SNAP purchase required. Serves Ferry County and Wauconda residents. Visit in person; call to confirm.",
+    "region": "rural"
+  },
+  {
+    "_id": "orient-food-pantry",
+    "name": "Orient Food Pantry",
+    "kind": "foodbank",
+    "address": "365 Main St, Orient, WA 99160",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        -118.20492,
+        48.866428
+      ]
+    },
+    "hours": "Mon-Thu 11am-5pm; Fri 11am-3pm",
+    "days": [
+      "mon",
+      "tue",
+      "wed",
+      "thu",
+      "fri"
+    ],
+    "accepts_snap": false,
+    "phone": "+15096845644",
+    "notes": "Free food distribution; no SNAP purchase required. Pickup at Essentials General Store. Serves Orient and surrounding area. Pantry hours differ from retail store hours.",
+    "region": "rural"
+  },
+  {
+    "_id": "kettle-falls-community-chest",
+    "name": "Kettle Falls Community Chest & Food Pantry",
+    "kind": "foodbank",
+    "address": "472 S Meyers St, Kettle Falls, WA 99141",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        -118.05639918813,
+        48.609183916681
+      ]
+    },
+    "hours": "Mon-Thu 10am-2pm",
+    "days": [
+      "mon",
+      "tue",
+      "wed",
+      "thu"
+    ],
+    "accepts_snap": false,
+    "phone": "+15097382326",
+    "notes": "Free food distribution; no SNAP purchase required. Located in neighboring Stevens County. Confirm service-area eligibility and travel access by phone.",
+    "region": "rural"
+  },
+  {
+    "_id": "keller-senior-meals",
+    "name": "Keller Senior Meal Site",
+    "kind": "meal",
+    "address": "7 Jim James Rd, Keller, WA 99140",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        -118.692867596983,
+        48.09950582883
+      ]
+    },
+    "hours": "Lunch Mon-Thu noon; breakfast Fri 9am",
+    "days": [
+      "mon",
+      "tue",
+      "wed",
+      "thu",
+      "fri"
+    ],
+    "accepts_snap": false,
+    "phone": "+15096342803",
+    "notes": "Eligibility-restricted: Colville Reservation seniors 55+; nutrition assistance may also serve adults 18+ with disabilities. Call to confirm eligibility, meal costs and availability; not an unrestricted free meal site.",
+    "region": "rural"
   }
 ]

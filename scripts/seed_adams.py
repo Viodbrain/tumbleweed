@@ -68,27 +68,28 @@ async def main():
                     f"modified {result.modified_count}."
                 )
         await apply_indexes(db)
-        origin_zip = datasets["zips"][0]["_id"]
-        origin = (await db.zips.find_one({"_id": origin_zip}))["location"]
-        cursor = await db.places.aggregate(
-            [
-                {
-                    "$geoNear": {
-                        "near": origin,
-                        "key": "location",
-                        "distanceField": "distance_m",
-                        "maxDistance": 40 * 1609.344,
-                        "spherical": True,
-                        "query": {"_id": {"$in": [r["_id"] for r in datasets["places"]]}},
-                    }
-                },
-            ]
-        )
-        nearby = await cursor.to_list(length=None)
-        if len(nearby) != len(datasets["places"]):
-            raise ValueError("Nearby lookup did not return all seeded places.")
-        for place in nearby:
-            print(f"Verified nearby: {place['name']} ({place['distance_m'] / 1609.344:.2f} straight-line miles)")
+        for collection, records in datasets.items():
+            ids = [record["_id"] for record in records]
+            if await db[collection].count_documents({"_id": {"$in": ids}}) != len(ids):
+                raise ValueError(f"Not all seeded {collection} records were found.")
+        # A county can span more than the search radius. Verify each ZIP's query
+        # independently rather than requiring every place near the first ZIP.
+        for zip_record in datasets["zips"]:
+            cursor = await db.places.aggregate(
+                [
+                    {
+                        "$geoNear": {
+                            "near": zip_record["location"],
+                            "key": "location",
+                            "distanceField": "distance_m",
+                            "maxDistance": 40 * 1609.344,
+                            "spherical": True,
+                        }
+                    },
+                ]
+            )
+            nearby = await cursor.to_list(length=None)
+            print(f"ZIP {zip_record['_id']}: {len(nearby)} resources within 40 straight-line miles.")
         print("Atlas seed and nearby search verification succeeded.")
         return 0
     except (PyMongoError, RuntimeError) as exc:

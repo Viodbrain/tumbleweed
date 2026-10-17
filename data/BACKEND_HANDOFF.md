@@ -16,6 +16,7 @@ allows the backend host's IP. Never commit the URI or include it in error logs.
 ```sh
 .venv/bin/python -m scripts.setup_indexes --apply
 .venv/bin/python -m scripts.seed_adams --apply
+.venv/bin/python -m scripts.seed_adams --dataset ferry-wa --apply
 .venv/bin/python -m scripts.test_mongodb
 .venv/bin/python -m scripts.find_food --zip 99344 --snap
 .venv/bin/python -m scripts.list_events --zip 99344
@@ -51,8 +52,9 @@ establish that a place is open right now or on a holiday.
 
 `resolve_point` returns a ResolvedPoint model with zip/location fields, or None.
 City matching is normalized exact-name matching; ambiguous cities choose the
-lowest ZIP deterministically. Coverage is currently Othello (99344) and Curlew (99118). Curlew uses a Census
-ZCTA reference point rather than the town center.
+lowest ZIP deterministically. Coverage includes all 20 Census ZCTAs intersecting Adams/Ferry counties (11 and 9
+respectively), including cross-county areas. New origins use Census ZCTA reference
+points; the original Othello town point is preserved. See `data/COUNTY_COVERAGE.md`.
 
 `list_events` returns at most five typed FoodEvent models, ordered by
 start time, within 40 miles, from now through the next 14 days by default.
@@ -67,13 +69,17 @@ error reply. An outage must not be presented as no resources available.
 
 ## Current dataset and remaining work
 
-- The Adams seed contains ZIP 99344, Walmart, Lep-Re-Kon, and Othello Food Bank.
-- The Ferry seed adds ZIP 99118, Curlew Community Food Pantry, Danville Outpost,
-  and Ferry County Co-op. Run `python -m scripts.seed_adams --dataset ferry-wa --apply`.
-  The pantry is first/third Thursday only; the co-op has seasonal hours. See
-  `data/ferry-wa/sources.json` for provenance and schedule limitations.
-- Lep-Re-Kon has unknown weekly days, so Saturday-filtered results currently
-  contain only Walmart. Never promise three results when fewer match.
+- The Adams seed contains 11 ZIP areas and 11 resources; Ferry contains nine ZIP
+  areas and 12 resources. Both counties have pantry and SNAP candidates within
+  40 straight-line miles of each seeded reference point. This does not establish
+  eligibility, availability, or a drivable route.
+- Run both county seed commands. New provenance is in each `county-sources.json`;
+  earlier records keep their original research/source files.
+- Unknown hours/phones remain null and unknown weekly days remain []. Such
+  records are excluded by open-day filters. Never promise three results when
+  fewer match. Cross-county resources can appear in a nearby search.
+- Preserve the Curlew first/third Thursday restriction, co-op seasonal schedule,
+  meal-site eligibility restrictions, and provider-hour discrepancies in replies.
 - Othello Food Bank is free distribution, with `accepts_snap=false` denoting no
   SNAP retail purchase for that service. SNAP recipients may still use it.
   Search `kind="foodbank"` without `accepts_snap=True` for free food banks.
@@ -99,7 +105,6 @@ Index setup includes unique `users.handle`, message history/feed indexes, and
 unique `_id` index. No TTL policy is imposed. Existing duplicate user handles
 must be resolved before the unique index can be created.
 
-Data coverage expansion is a separate follow-up: load a sourced full WA ZIP
-lookup, additional food-bank data, a current real event, and Seattle resources.
-Current coverage does not support those demo scenarios yet. No additional
-records are implied by the code fixes in this PR.
+Follow-ups: full Washington coverage, current verified events, Seattle data,
+unknown hours/phones, and provider confirmation. Historical/non-ZCTA ZIPs are
+not silently treated as current geographic origins. No events were invented.

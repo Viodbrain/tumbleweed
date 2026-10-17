@@ -1,5 +1,113 @@
 [
   {
+    "_id": "98832",
+    "city": "marlin",
+    "state": "WA",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        -119.027962,
+        47.331263
+      ]
+    }
+  },
+  {
+    "_id": "98857",
+    "city": "warden",
+    "state": "WA",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        -119.024761,
+        46.990068
+      ]
+    }
+  },
+  {
+    "_id": "99032",
+    "city": "sprague",
+    "state": "WA",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        -118.033606,
+        47.327317
+      ]
+    }
+  },
+  {
+    "_id": "99105",
+    "city": "benge",
+    "state": "WA",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        -118.072907,
+        46.956914
+      ]
+    }
+  },
+  {
+    "_id": "99159",
+    "city": "odessa",
+    "state": "WA",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        -118.76587,
+        47.32684
+      ]
+    }
+  },
+  {
+    "_id": "99169",
+    "city": "ritzville",
+    "state": "WA",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        -118.378417,
+        47.119773
+      ]
+    }
+  },
+  {
+    "_id": "99326",
+    "city": "connell",
+    "state": "WA",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        -118.841759,
+        46.668839
+      ]
+    }
+  },
+  {
+    "_id": "99333",
+    "city": "hooper",
+    "state": "WA",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        -118.139386,
+        46.697027
+      ]
+    }
+  },
+  {
+    "_id": "99341",
+    "city": "lind",
+    "state": "WA",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        -118.642171,
+        46.906596
+      ]
+    }
+  },
+  {
     "_id": "99344",
     "city": "othello",
     "state": "WA",
@@ -8,6 +116,18 @@
       "coordinates": [
         -119.17529,
         46.82597
+      ]
+    }
+  },
+  {
+    "_id": "99371",
+    "city": "washtucna",
+    "state": "WA",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        -118.332223,
+        46.785258
       ]
     }
   }
