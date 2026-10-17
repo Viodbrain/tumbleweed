@@ -3,6 +3,7 @@
 from unittest.mock import Mock
 
 import pytest
+
 from app import data
 from app.models import FindFoodArgs
 
