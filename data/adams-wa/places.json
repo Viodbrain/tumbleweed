@@ -1,0 +1,48 @@
+[
+  {
+    "_id": "walmart-3217-othello",
+    "name": "Walmart Supercenter #3217",
+    "kind": "grocery",
+    "address": "1860 E Main St, Othello, WA 99344",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        -119.14788,
+        46.824165
+      ]
+    },
+    "hours": "Daily 6am-11pm",
+    "days": [
+      "mon",
+      "tue",
+      "wed",
+      "thu",
+      "fri",
+      "sat",
+      "sun"
+    ],
+    "accepts_snap": true,
+    "phone": "+15094889295",
+    "notes": "SNAP EBT accepted for eligible groceries. Delivery has fees; availability depends on address.",
+    "region": "rural"
+  },
+  {
+    "_id": "lep-re-kon-othello",
+    "name": "Lep-Re-Kon Harvest Foods",
+    "kind": "grocery",
+    "address": "1115 E Main St, Othello, WA 99344",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        -119.15862,
+        46.826599
+      ]
+    },
+    "hours": "6am-10pm",
+    "days": [],
+    "accepts_snap": true,
+    "phone": "+15094889992",
+    "notes": "Weekly open days are unverified; call to confirm.",
+    "region": "rural"
+  }
+]

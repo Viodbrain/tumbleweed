@@ -1,0 +1,14 @@
+[
+  {
+    "_id": "99344",
+    "city": "othello",
+    "state": "WA",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        -119.17529,
+        46.82597
+      ]
+    }
+  }
+]
