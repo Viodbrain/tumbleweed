@@ -9,7 +9,8 @@ import pytest
 
 
 @pytest.mark.parametrize("dataset", ["adams-wa", "ferry-wa"])
-async def test_seed_verifies_more_than_three_places(tmp_path, monkeypatch, dataset):
+@pytest.mark.parametrize("nearby_count", [1, 4])
+async def test_seed_verifies_more_than_three_places(tmp_path, monkeypatch, dataset, nearby_count):
     monkeypatch.syspath_prepend(str(Path(__file__).resolve().parents[2]))
     from scripts import seed_adams
 
@@ -44,7 +45,8 @@ async def test_seed_verifies_more_than_three_places(tmp_path, monkeypatch, datas
             )
         )
     )
-    cursor = SimpleNamespace(to_list=AsyncMock(return_value=[dict(r, distance_m=100) for r in records]))
+    collection.count_documents = AsyncMock(side_effect=[1, 4])
+    cursor = SimpleNamespace(to_list=AsyncMock(return_value=[dict(r, distance_m=100) for r in records[:nearby_count]]))
     database = Mock()
     database.__getitem__ = Mock(return_value=collection)
     database.zips.find_one = AsyncMock(return_value={"location": point})
@@ -57,4 +59,4 @@ async def test_seed_verifies_more_than_three_places(tmp_path, monkeypatch, datas
     assert await seed_adams.main() == 0
     pipeline = database.places.aggregate.call_args.args[0]
     assert not any("$limit" in stage for stage in pipeline)
-    assert "accepts_snap" not in pipeline[0]["$geoNear"]["query"]
+    assert "accepts_snap" not in pipeline[0]["$geoNear"].get("query", {})

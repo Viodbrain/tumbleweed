@@ -1,3 +1,10 @@
+## County-wide expansion
+
+The dataset now includes 9 Census ZIP areas and 12 resources.
+See `../COUNTY_COVERAGE.md` for the geographic scope and limitations, and
+`county-sources.json` for each new record's provenance. The material below
+records the original Othello/Curlew rollout; its resource counts are historical.
+
 # Curlew, Ferry County, Washington — ZIP 99118
 
 Prepared and loaded into Atlas October 17, 2026. ZIP/city, SNAP and food-bank

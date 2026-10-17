@@ -1,0 +1,222 @@
+{
+  "reviewed_on": "2026-10-17",
+  "scope": "2020 Census ZCTA/county intersections, with 2025 internal points. Cross-county ZIP areas included; not an exhaustive current USPS PO-box ZIP inventory.",
+  "zips": [
+    {
+      "id": "99118",
+      "county_fips": "53019",
+      "county": "Ferry County",
+      "county_land_share_of_zcta": 1.0,
+      "relationship_source": "https://www2.census.gov/geo/docs/maps-data/data/rel2020/zcta520/tab20_zcta520_county20_natl.txt",
+      "coordinate_source": "https://www2.census.gov/geo/docs/maps-data/data/gazetteer/2025_Gazetteer/2025_Gaz_zcta_national.zip",
+      "coordinate_method": "Census ZCTA internal point",
+      "postal_name_source": "https://download.geonames.org/export/zip/US.zip"
+    },
+    {
+      "id": "99121",
+      "county_fips": "53019",
+      "county": "Ferry County",
+      "county_land_share_of_zcta": 1.0,
+      "relationship_source": "https://www2.census.gov/geo/docs/maps-data/data/rel2020/zcta520/tab20_zcta520_county20_natl.txt",
+      "coordinate_source": "https://www2.census.gov/geo/docs/maps-data/data/gazetteer/2025_Gazetteer/2025_Gaz_zcta_national.zip",
+      "coordinate_method": "Census ZCTA internal point",
+      "postal_name_source": "https://download.geonames.org/export/zip/US.zip"
+    },
+    {
+      "id": "99138",
+      "county_fips": "53019",
+      "county": "Ferry County",
+      "county_land_share_of_zcta": 1.0,
+      "relationship_source": "https://www2.census.gov/geo/docs/maps-data/data/rel2020/zcta520/tab20_zcta520_county20_natl.txt",
+      "coordinate_source": "https://www2.census.gov/geo/docs/maps-data/data/gazetteer/2025_Gazetteer/2025_Gaz_zcta_national.zip",
+      "coordinate_method": "Census ZCTA internal point",
+      "postal_name_source": "https://download.geonames.org/export/zip/US.zip"
+    },
+    {
+      "id": "99140",
+      "county_fips": "53019",
+      "county": "Ferry County",
+      "county_land_share_of_zcta": 1.0,
+      "relationship_source": "https://www2.census.gov/geo/docs/maps-data/data/rel2020/zcta520/tab20_zcta520_county20_natl.txt",
+      "coordinate_source": "https://www2.census.gov/geo/docs/maps-data/data/gazetteer/2025_Gazetteer/2025_Gaz_zcta_national.zip",
+      "coordinate_method": "Census ZCTA internal point",
+      "postal_name_source": "https://download.geonames.org/export/zip/US.zip"
+    },
+    {
+      "id": "99141",
+      "county_fips": "53019",
+      "county": "Ferry County",
+      "county_land_share_of_zcta": 0.53285,
+      "relationship_source": "https://www2.census.gov/geo/docs/maps-data/data/rel2020/zcta520/tab20_zcta520_county20_natl.txt",
+      "coordinate_source": "https://www2.census.gov/geo/docs/maps-data/data/gazetteer/2025_Gazetteer/2025_Gaz_zcta_national.zip",
+      "coordinate_method": "Census ZCTA internal point",
+      "postal_name_source": "https://download.geonames.org/export/zip/US.zip"
+    },
+    {
+      "id": "99146",
+      "county_fips": "53019",
+      "county": "Ferry County",
+      "county_land_share_of_zcta": 1.0,
+      "relationship_source": "https://www2.census.gov/geo/docs/maps-data/data/rel2020/zcta520/tab20_zcta520_county20_natl.txt",
+      "coordinate_source": "https://www2.census.gov/geo/docs/maps-data/data/gazetteer/2025_Gazetteer/2025_Gaz_zcta_national.zip",
+      "coordinate_method": "Census ZCTA internal point",
+      "postal_name_source": "https://download.geonames.org/export/zip/US.zip"
+    },
+    {
+      "id": "99150",
+      "county_fips": "53019",
+      "county": "Ferry County",
+      "county_land_share_of_zcta": 1.0,
+      "relationship_source": "https://www2.census.gov/geo/docs/maps-data/data/rel2020/zcta520/tab20_zcta520_county20_natl.txt",
+      "coordinate_source": "https://www2.census.gov/geo/docs/maps-data/data/gazetteer/2025_Gazetteer/2025_Gaz_zcta_national.zip",
+      "coordinate_method": "Census ZCTA internal point",
+      "postal_name_source": "https://download.geonames.org/export/zip/US.zip"
+    },
+    {
+      "id": "99160",
+      "county_fips": "53019",
+      "county": "Ferry County",
+      "county_land_share_of_zcta": 1.0,
+      "relationship_source": "https://www2.census.gov/geo/docs/maps-data/data/rel2020/zcta520/tab20_zcta520_county20_natl.txt",
+      "coordinate_source": "https://www2.census.gov/geo/docs/maps-data/data/gazetteer/2025_Gazetteer/2025_Gaz_zcta_national.zip",
+      "coordinate_method": "Census ZCTA internal point",
+      "postal_name_source": "https://download.geonames.org/export/zip/US.zip"
+    },
+    {
+      "id": "99166",
+      "county_fips": "53019",
+      "county": "Ferry County",
+      "county_land_share_of_zcta": 0.984837,
+      "relationship_source": "https://www2.census.gov/geo/docs/maps-data/data/rel2020/zcta520/tab20_zcta520_county20_natl.txt",
+      "coordinate_source": "https://www2.census.gov/geo/docs/maps-data/data/gazetteer/2025_Gazetteer/2025_Gaz_zcta_national.zip",
+      "coordinate_method": "Census ZCTA internal point",
+      "postal_name_source": "https://download.geonames.org/export/zip/US.zip"
+    }
+  ],
+  "places": [
+    {
+      "id": "keller-community-store",
+      "sources": [
+        "https://services1.arcgis.com/RLQu0rK7h4kbsBq5/arcgis/rest/services/snap_retailer_location_data/FeatureServer/0",
+        "https://www.colvillefuels.com/grocery-stores",
+        "https://goo.gl/maps/e6FjMPfgBtooEuc7A"
+      ],
+      "coordinate_method": "Place coordinates from the map linked by the operator; entrance not verified",
+      "unknown_fields": [],
+      "address_discrepancy": {
+        "usda_label": "611 S HWY 21, Keller, WA 99140",
+        "operator_address": "11611 WA-21, Keller, WA 99140",
+        "resolution": "Use operator address and operator-linked map point, not mismatched USDA coordinates."
+      }
+    },
+    {
+      "id": "andersons-grocery-republic",
+      "sources": [
+        "https://services1.arcgis.com/RLQu0rK7h4kbsBq5/arcgis/rest/services/snap_retailer_location_data/FeatureServer/0"
+      ],
+      "coordinate_method": "USDA retailer point; public entrance not verified",
+      "unknown_fields": [
+        "hours",
+        "days",
+        "phone"
+      ]
+    },
+    {
+      "id": "inchelium-community-store",
+      "sources": [
+        "https://services1.arcgis.com/RLQu0rK7h4kbsBq5/arcgis/rest/services/snap_retailer_location_data/FeatureServer/0",
+        "https://www.colvillefuels.com/grocery-stores",
+        "https://goo.gl/maps/HExr8yCgtPPcoPgc8"
+      ],
+      "coordinate_method": "Place coordinates from the map linked by the operator; entrance not verified",
+      "unknown_fields": [],
+      "address_discrepancy": {
+        "usda_label": "18 N Twin Lakes Rd, Inchelium, WA 99138",
+        "operator_address": "38 Short Cut Rd, Inchelium, WA 99138",
+        "resolution": "Use operator address and operator-linked map point, not mismatched USDA coordinates."
+      }
+    },
+    {
+      "id": "republic-market",
+      "sources": [
+        "https://services1.arcgis.com/RLQu0rK7h4kbsBq5/arcgis/rest/services/snap_retailer_location_data/FeatureServer/0"
+      ],
+      "coordinate_method": "USDA retailer point; public entrance not verified",
+      "unknown_fields": [
+        "hours",
+        "days",
+        "phone"
+      ]
+    },
+    {
+      "id": "essentials-general-store-orient",
+      "sources": [
+        "https://services1.arcgis.com/RLQu0rK7h4kbsBq5/arcgis/rest/services/snap_retailer_location_data/FeatureServer/0",
+        "https://newhungercoalition.org/food-bank/orient-food-bank/"
+      ],
+      "coordinate_method": "USDA retailer point; public entrance not verified",
+      "unknown_fields": [
+        "hours",
+        "days"
+      ]
+    },
+    {
+      "id": "peoples-pantry-republic",
+      "sources": [
+        "https://newhungercoalition.org/food-bank/the-peoples-pantry-of-ferry-county/",
+        "https://ccwa.doh.wa.gov/search/4f153f8e-f4f1-5fb4-8e47-d8c675d4bbf1"
+      ],
+      "coordinate_method": "Census address interpolation; entrance not verified",
+      "unknown_fields": [],
+      "coordinate_source": "https://geocoding.geo.census.gov/geocoder/locations/onelineaddress?address=925+S+Keller+St%2C+Republic%2C+WA+99166&benchmark=Public_AR_Current&format=json",
+      "matched_address": "925 S KELLER ST, REPUBLIC, WA, 99166"
+    },
+    {
+      "id": "orient-food-pantry",
+      "sources": [
+        "https://newhungercoalition.org/food-bank/orient-food-bank/"
+      ],
+      "coordinate_method": "USDA point for same venue; entrance not verified",
+      "unknown_fields": [],
+      "coordinate_source": "https://services1.arcgis.com/RLQu0rK7h4kbsBq5/arcgis/rest/services/snap_retailer_location_data/FeatureServer/0"
+    },
+    {
+      "id": "kettle-falls-community-chest",
+      "sources": [
+        "https://newhungercoalition.org/food-bank/kettle-falls-community-chest-food-bank/"
+      ],
+      "coordinate_method": "Census address interpolation; entrance not verified",
+      "unknown_fields": [],
+      "coordinate_source": "https://geocoding.geo.census.gov/geocoder/locations/onelineaddress?address=472+S+Meyers+St%2C+Kettle+Falls%2C+WA+99141&benchmark=Public_AR_Current&format=json",
+      "matched_address": "472 S MEYERS ST, KETTLE FALLS, WA, 99141"
+    },
+    {
+      "id": "keller-senior-meals",
+      "sources": [
+        "https://www.colvilletribes.com/aaoa",
+        "https://cctitd.squarespace.com/aaoa",
+        "https://www.colvilletribes.com/s/ServicesBook2024.pdf"
+      ],
+      "coordinate_source": "https://geocoding.geo.census.gov/geocoder/locations/onelineaddress?address=7+Jim+James+Rd%2C+Keller%2C+WA+99140&benchmark=Public_AR_Current&format=json",
+      "coordinate_method": "Census address interpolation; entrance not verified",
+      "unknown_fields": [
+        "meal costs"
+      ],
+      "snap_classification": "Meal assistance rather than SNAP retail checkout."
+    }
+  ],
+  "excluded": [
+    {
+      "codes": [
+        "99107",
+        "99327",
+        "99332"
+      ],
+      "reason": "Historical or unverified postal codes absent from the chosen Census ZCTA scope. Not loaded as current search origins."
+    },
+    {
+      "resource": "Inchelium Senior Meal Site",
+      "reason": "Address/program verified, but reliable stored coordinate pending. Not loaded."
+    }
+  ]
+}

@@ -67,5 +67,167 @@
     "phone": "+15094886044",
     "notes": "Free food; no SNAP purchase required. Serves ZIP 99344. One box per household weekly. Bring photo ID and address if available. Thu 10am-1pm is enrolled senior-program pickup only. Spanish available. WA211 lists different public hours; call to confirm.",
     "region": "rural"
+  },
+  {
+    "_id": "la-mexicana-othello",
+    "name": "La Mexicana Super Market",
+    "kind": "grocery",
+    "address": "81 W Main St, Othello, WA 99344",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        -119.17677,
+        46.825768
+      ]
+    },
+    "hours": null,
+    "days": [],
+    "accepts_snap": true,
+    "phone": null,
+    "notes": "SNAP-authorized retailer listed by USDA. Hours and contact details not independently verified.",
+    "region": "rural"
+  },
+  {
+    "_id": "el-jazmin-othello",
+    "name": "El Jazmin",
+    "kind": "grocery",
+    "address": "531 E Main St, Othello, WA 99344",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        -119.16746,
+        46.826206
+      ]
+    },
+    "hours": null,
+    "days": [],
+    "accepts_snap": true,
+    "phone": null,
+    "notes": "SNAP-authorized retailer listed by USDA. Hours and contact details not independently verified.",
+    "region": "rural"
+  },
+  {
+    "_id": "jims-market-lind",
+    "name": "Jim's Market",
+    "kind": "grocery",
+    "address": "113 W 2nd Ave, Lind, WA 99341",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        -118.61667,
+        46.971638
+      ]
+    },
+    "hours": null,
+    "days": [],
+    "accepts_snap": true,
+    "phone": null,
+    "notes": "SNAP-authorized retailer listed by USDA. Hours and contact details not independently verified.",
+    "region": "rural"
+  },
+  {
+    "_id": "akins-fresh-market-ritzville",
+    "name": "Akins Fresh Market",
+    "kind": "grocery",
+    "address": "610 W 1st Ave, Ritzville, WA 99169",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        -118.38242,
+        47.122864
+      ]
+    },
+    "hours": "Daily 7am-9pm",
+    "days": [
+      "mon",
+      "tue",
+      "wed",
+      "thu",
+      "fri",
+      "sat",
+      "sun"
+    ],
+    "accepts_snap": true,
+    "phone": "+15096591398",
+    "notes": "SNAP-authorized retailer listed by USDA. Call for holiday hours.",
+    "region": "rural"
+  },
+  {
+    "_id": "mi-casa-market-othello",
+    "name": "Mi Casa Market 2",
+    "kind": "grocery",
+    "address": "535 S 1st Ave, Othello, WA 99344",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        -119.17353,
+        46.820663
+      ]
+    },
+    "hours": null,
+    "days": [],
+    "accepts_snap": true,
+    "phone": null,
+    "notes": "SNAP-authorized retailer listed by USDA. Hours and contact details not independently verified.",
+    "region": "rural"
+  },
+  {
+    "_id": "ritzville-food-pantry",
+    "name": "Ritzville Food Pantry",
+    "kind": "foodbank",
+    "address": "104 W Main Ave, Ritzville, WA 99169",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        -118.380126968559,
+        47.127501908656
+      ]
+    },
+    "hours": "Thu 2pm-4:30pm",
+    "days": [
+      "thu"
+    ],
+    "accepts_snap": false,
+    "phone": "+15096594449",
+    "notes": "Free food distribution; no SNAP purchase required. Serves Ritzville, Lind and surrounding area. Sign up on site; low-income eligibility. WA211 lists 2:30pm opening instead of city-listed 2pm; call to confirm.",
+    "region": "rural"
+  },
+  {
+    "_id": "lind-food-pantry",
+    "name": "Lind Food Pantry",
+    "kind": "foodbank",
+    "address": "219 W 3rd St, Lind, WA 99341",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        -118.617546043669,
+        46.972948383406
+      ]
+    },
+    "hours": null,
+    "days": [],
+    "accepts_snap": false,
+    "phone": null,
+    "notes": "Free food distribution; no SNAP purchase required. DSHS lists this pantry as a September 2026 outreach venue. Recurring pickup hours and contact number are unverified; the outreach event hours are not pantry hours.",
+    "region": "rural"
+  },
+  {
+    "_id": "washtucna-food-pantry",
+    "name": "Washtucna Food Pantry",
+    "kind": "foodbank",
+    "address": "287 S Main St, Washtucna, WA 99371",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        -118.315716096205,
+        46.750864600773
+      ]
+    },
+    "hours": null,
+    "days": [],
+    "accepts_snap": false,
+    "phone": "+15096463310",
+    "notes": "Free food distribution; no SNAP purchase required. Distribution from museum community room. Serves Washtucna, Ralston, Benge and Hooper. Pickup hours unverified; call ahead. Museum appointment hours are not food pickup hours.",
+    "region": "rural"
   }
 ]
