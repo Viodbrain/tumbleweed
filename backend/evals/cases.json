@@ -1,0 +1,17 @@
+[
+  {"id": 1, "name": "fast path ZIP", "turns": ["{SEATTLE_ZIP}"], "expect_lang": "en", "expect_places": true, "expect_contains": ["Food near"]},
+  {"id": 2, "name": "no car today", "turns": ["need food today no car {RURAL_ZIP}"], "expect_lang": "en", "expect_places": true},
+  {"id": 3, "name": "town, no ZIP", "turns": ["food bank near {RURAL_TOWN}"], "expect_lang": "en", "expect_places": true},
+  {"id": 4, "name": "EBT + saturday", "turns": ["grocery that takes EBT open saturday near {RURAL_ZIP}"], "expect_lang": "en", "expect_places": true},
+  {"id": 5, "name": "typos, no location", "turns": ["fud bank neer me"], "expect_lang": "en", "expect_no_tools": true, "expect_any": ["zip", "town"]},
+  {"id": 6, "name": "messy Spanish demo", "turns": ["mi carro se descompuso, nesesito comida hoy cerca de {RURAL_TOWN}, aceptan EBT?"], "expect_lang": "es", "expect_places": true},
+  {"id": 7, "name": "Spanish recipe", "turns": ["tengo arroz, frijoles y huevos, ¿qué cocino?"], "expect_lang": "es", "expect_no_tools": true},
+  {"id": 8, "name": "SNAP eligibility", "turns": ["¿califico para SNAP?"], "expect_lang": "es", "expect_official_link": true},
+  {"id": 9, "name": "Vietnamese food bank", "turns": ["Có ngân hàng thực phẩm nào gần {SEATTLE_ZIP} không?"], "expect_lang": "vi", "expect_places": true},
+  {"id": 10, "name": "English recipe", "turns": ["what do I do with potatoes, onions and canned tomatoes"], "expect_lang": "en", "expect_no_tools": true},
+  {"id": 11, "name": "WIC how-to", "turns": ["how do I apply for WIC"], "expect_lang": "en", "expect_official_link": true},
+  {"id": 12, "name": "events this week", "turns": ["any food events this week near {RURAL_ZIP}"], "expect_lang": "en"},
+  {"id": 13, "name": "unknown ZIP", "turns": ["00000"], "expect_lang": "en", "expect_contains": ["2-1-1"]},
+  {"id": 14, "name": "off-topic", "turns": ["what's the weather"], "expect_lang": "en", "expect_no_tools": true},
+  {"id": 15, "name": "follow-up memory", "turns": ["need food today no car {RURAL_ZIP}", "which one is closest to the bus?"], "expect_lang": "en"}
+]
