@@ -40,6 +40,8 @@ package resolves. Use `get_db()` for the shared async cached connection.
 All CLI scripts reuse this same async implementation; the duplicate sync layer was removed.
 The brain still owns user
 and message writes, subscription commands, conversation memory, and reply text.
+Persistent food preference context and reset behavior are documented in
+`data/USER_CONTEXT.md`. Every channel inherits them through `reply()`.
 
 `find_food` supports `zip`, `city`, `lat`, `lng`, `kind`, `accepts_snap`,
 `open_day`, and `limit`. Coordinates take priority over ZIP, then city.
