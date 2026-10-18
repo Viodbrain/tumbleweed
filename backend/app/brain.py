@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import asyncio
 import json
 import logging
 import os
@@ -33,6 +34,8 @@ MAX_REPLY_CHARS = 300
 MAX_TOOL_ROUNDS = 3
 HISTORY_MESSAGES = 6
 MAX_INPUT_CHARS = 2000
+# Whole-reply budget. The webhook sends a "Got it" ack after 1.5 s; past this, give the fallback.
+REPLY_DEADLINE_S = 20.0
 
 JOIN_REPLY = "You're signed up for food event reminders near you. Text STOP to opt out."
 STOP_REPLY = "You won't get reminders anymore. You can still text me anytime."
@@ -291,7 +294,8 @@ async def call_model(
     """The only function that touches the LLM SDK. Returns content blocks as plain dicts."""
     global _client
     if _client is None:
-        _client = AsyncAnthropic(timeout=10.0, max_retries=1)
+        # Haiku calls usually take ~1 s but spike to 5-7 s at times; retry once only if a call stalls past 8 s.
+        _client = AsyncAnthropic(timeout=8.0, max_retries=1)
     resp = await _client.messages.create(
         model=os.getenv("LLM_MODEL", "claude-haiku-5-5"),
         max_tokens=max_tokens,
@@ -459,7 +463,11 @@ def _history_to_messages(docs: list[dict[str, Any]], text: str) -> list[dict[str
 async def reply(args: ReplyArgs) -> str:
     last_tool_results.clear()
     try:
-        return await _reply(args)
+        async with asyncio.timeout(REPLY_DEADLINE_S):
+            return await _reply(args)
+    except TimeoutError:
+        log.error("reply timed out after %.0fs for handle=%s", REPLY_DEADLINE_S, args.handle)
+        return ERROR_REPLY
     except Exception:
         log.exception("reply failed for handle=%s", args.handle)
         return ERROR_REPLY
