@@ -13,6 +13,43 @@ Set `MONGODB_URI` and `MONGODB_DB=tumbleweed` privately in `backend/.env`, or in
 the deployment environment. Deployment variables take priority. Ensure Atlas
 allows the backend host's IP. Never commit the URI or include it in error logs.
 
+## Secrets and environment variables
+
+Use [`backend/.env.example`](../backend/.env.example) as the checklist of
+variable names. It is only a template; do not put real values in it.
+
+For local development, create `backend/.env` and fill in the values privately.
+The application loads configuration in this order:
+
+1. Process environment variables
+2. `backend/.env`
+3. Legacy root `.env.local` fallback
+
+For Railway, enter the same variables in the service's **Variables** settings.
+Do not upload `.env` files or commit secrets to GitHub. Railway injects those
+variables into the running process at deploy time.
+
+The variables come from different services:
+
+- `MONGODB_URI` and `MONGODB_DB`: MongoDB Atlas connection details and database
+  name.
+- `PHOTON_API_KEY`, `PHOTON_PROJECT_ID`, and `PHOTON_WEBHOOK_SECRET`: Photon
+  project credentials and the secret configured for Photon webhook signing.
+- `ANTHROPIC_API_KEY` and `LLM_MODEL`: Anthropic API access and the Claude model
+  name used by the backend.
+- `ELEVENLABS_WEBHOOK_KEY`: a Tumbleweed-generated shared secret configured as
+  the `X-ElevenLabs-Webhook-Key` header on ElevenLabs in-call tools.
+- `ELEVENLABS_WEBHOOK_SECRET`: the signing secret generated/configured for the
+  ElevenLabs post-call webhook. The backend verifies the
+  `elevenlabs-signature` header with it.
+- `DEFAULT_TZ` and `ALLOWED_ORIGINS`: non-secret application settings.
+
+When a secret is missing, the affected integration fails explicitly; it is
+not a value coworkers should guess or copy from source code. Share values
+through the team's approved password manager or secret-sharing process. If a
+secret appears in Git, chat, a ticket, or an accidentally committed local
+file, treat it as compromised and rotate it at the issuing service.
+
 ```sh
 .venv/bin/python -m scripts.setup_indexes --apply
 .venv/bin/python -m scripts.seed_adams --apply
