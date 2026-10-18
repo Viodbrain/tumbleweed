@@ -101,3 +101,28 @@ def test_rejects_bad_signature(client: tuple[TestClient, list[dict[str, Any]], l
     body, headers = _signed(_event())
     headers["webhook-signature"] = "v1,AAAA"
     assert http.post("/api/photon", content=body, headers=headers).status_code == 401
+
+
+def test_grouped_text_parts_are_joined() -> None:
+    from app.photon_client import extract_inbound
+
+    event = _event(message_id="msg_3")
+    event["data"]["content"] = {
+        "type": "group",
+        "parts": [
+            {"type": "text", "format": "plain", "text": "99344"},
+            {"type": "text", "format": "plain", "text": " need free food services, can drive to food banks"},
+            {"type": "image", "url": "https://example.com/photo.jpg"},
+        ],
+    }
+    inbound = extract_inbound(event)
+    assert inbound is not None
+    assert inbound.text == "99344 need free food services, can drive to food banks"
+
+
+def test_group_without_text_is_ignored() -> None:
+    from app.photon_client import extract_inbound
+
+    event = _event(message_id="msg_4")
+    event["data"]["content"] = {"type": "group", "parts": [{"type": "image", "url": "https://example.com/a.jpg"}]}
+    assert extract_inbound(event) is None
