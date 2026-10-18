@@ -165,13 +165,16 @@ TOOLS: list[dict[str, Any]] = [
         "input_schema": {
             "type": "object",
             "properties": {
-                "text": {
-                    "type": "string",
-                    "description": "The text message, at most 300 characters, plain text.",
-                },
                 "lang": {
                     "type": "string",
-                    "description": "ISO 639-1 code of the user's last message, e.g. en, es.",
+                    "description": "ISO 639-1 code of the user's last message, e.g. en, es, vi.",
+                },
+                "text": {
+                    "type": "string",
+                    "description": (
+                        "The text message, written in the language given by lang (not the language "
+                        "of the tool results). At most 300 characters, plain text."
+                    ),
                 },
                 "zip": {
                     "type": ["string", "null"],
