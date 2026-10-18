@@ -52,11 +52,7 @@ file, treat it as compromised and rotate it at the issuing service.
 
 ```sh
 .venv/bin/python -m scripts.setup_indexes --apply
-.venv/bin/python -m scripts.seed_adams --apply
-.venv/bin/python -m scripts.seed_adams --dataset ferry-wa --apply
 .venv/bin/python -m scripts.test_mongodb
-.venv/bin/python -m scripts.find_food --zip 99344 --snap
-.venv/bin/python -m scripts.list_events --zip 99344
 ```
 
 ## Integration
@@ -91,9 +87,10 @@ establish that a place is open right now or on a holiday.
 
 `resolve_point` returns a ResolvedPoint model with zip/location fields, or None.
 City matching is normalized exact-name matching; ambiguous cities choose the
-lowest ZIP deterministically. Coverage includes all 20 Census ZCTAs intersecting Adams/Ferry counties (11 and 9
-respectively), including cross-county areas. New origins use Census ZCTA reference
-points; the original Othello town point is preserved. See `data/COUNTY_COVERAGE.md`.
+lowest ZIP deterministically. The production MongoDB database is the source of truth for ZIP coverage and food
+resources. The repository retains reviewed county fixtures for offline validation
+and controlled maintenance; those files are not loaded automatically by the
+application.
 
 `list_events` returns at most five typed FoodEvent models, ordered by
 start time, within 40 miles, from now through the next 14 days by default.
@@ -106,31 +103,21 @@ Invalid search inputs return [] (or None for resolve_point). Database failures
 propagate: the brain should catch PyMongoError/RuntimeError and use the agreed
 error reply. An outage must not be presented as no resources available.
 
-## Current dataset and remaining work
+## Current data operations
 
-- The Adams seed contains 11 ZIP areas and 11 resources; Ferry contains nine ZIP
-  areas and 12 resources. Both counties have pantry and SNAP candidates within
-  40 straight-line miles of each seeded reference point. This does not establish
-  eligibility, availability, or a drivable route.
-- Run both county seed commands. New provenance is in each `county-sources.json`;
-  earlier records keep their original research/source files.
-- Unknown hours/phones remain null and unknown weekly days remain []. Such
-  records are excluded by open-day filters. Never promise three results when
-  fewer match. Cross-county resources can appear in a nearby search.
-- Preserve the Curlew first/third Thursday restriction, co-op seasonal schedule,
-  meal-site eligibility restrictions, and provider-hour discrepancies in replies.
-- Othello Food Bank is free distribution, with `accepts_snap=false` denoting no
-  SNAP retail purchase for that service. SNAP recipients may still use it.
-  Search `kind="foodbank"` without `accepts_snap=True` for free food banks.
-  Public hours use the operator's Mon-Wed 1-4pm; WA211 differs, so notes advise
-  calling. Thursday is restricted senior pickup and excluded from public days.
-- No Google Maps key or routing API is required for the chosen distances.
-- Integration now preserves the async signatures and Pydantic types from the
-  backend scaffold pulled from main (8d23efe). No shared models or AI files were changed.
+The backend reads places, ZIPs, and events from MongoDB. County JSON fixtures and
+the explicit seeding/validation scripts are retained for offline tests and
+controlled maintenance only; they are not a fallback data source and are not
+loaded during application startup.
 
-Reviewed seed data and provenance are in `data/adams-wa/`. Re-running
-`python -m scripts.seed_adams --apply` upserts only the listed records and does not delete
-other data. `data/adams-wa/places.draft.json` is research, never a live seed file.
+Unknown hours/phones remain null and unknown weekly days remain []. Such records
+are excluded by open-day filters. Never promise three results when fewer match.
+Distances are approximate straight-line distances from representative origins,
+not driving distances.
+
+Use `scripts.setup_indexes` only to create or verify indexes. Data changes must
+go through the approved MongoDB/Atlas administration workflow with provenance
+recorded there, rather than through application startup or ad hoc local files.
 
 Configuration is loaded once through `backend/app/config.py`:
 process environment > `backend/.env` > legacy root `.env.local`.
