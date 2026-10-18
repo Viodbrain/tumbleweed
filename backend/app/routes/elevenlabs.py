@@ -8,6 +8,7 @@ import os
 import re
 from datetime import UTC, datetime
 from typing import Any
+from zoneinfo import ZoneInfo
 
 from elevenlabs import ElevenLabs
 from elevenlabs.errors import BadRequestError
@@ -34,6 +35,13 @@ class PlaceSearchRequest(BaseModel):
     accepts_snap: bool | None = None
     open_day: Day | None = None
     limit: int = Field(default=3, ge=1, le=5)
+
+
+class EventSearchRequest(BaseModel):
+    conversation_id: str = Field(min_length=1, max_length=128, pattern=r"^[A-Za-z0-9:_+.-]+$")
+    zip: str | None = Field(default=None, pattern=r"^\d{5}$")
+    city: str | None = None
+    days: int = Field(default=14, ge=1, le=30)
 
 
 class ContextRequest(BaseModel):
@@ -77,7 +85,9 @@ def _spoken_text(results: list[dict[str, Any]]) -> str:
         return "I couldn't find matching food resources within 40 miles."
     lines = []
     for index, place in enumerate(results, start=1):
-        details = [f"{index}. {place['name']}", f"about {place['distance_mi']:.1f} miles away"]
+        distance = place["distance_mi"]
+        away = "right in town" if distance < 0.1 else f"about {distance:.1f} miles away"
+        details = [f"{index}. {place['name']}", away]
         if place.get("hours"):
             details.append(place["hours"])
         if place.get("phone"):
@@ -112,6 +122,52 @@ async def search_places(
         raise HTTPException(status_code=503, detail="Place search is temporarily unavailable") from None
     results = [_minimal_place(place) for place in places]
     return {"results": results, "spoken_text": _spoken_text(results)}
+
+
+def _spoken_when(starts_at: datetime) -> str:
+    local = starts_at.astimezone(ZoneInfo(os.getenv("DEFAULT_TZ", "America/Los_Angeles")))
+    hour = local.strftime("%I").lstrip("0")
+    clock = f"{hour}:{local:%M} {local:%p}" if local.minute else f"{hour} {local:%p}"
+    return f"{local:%A}, {local:%B} {local.day} at {clock}"
+
+
+def _minimal_event(event: Any) -> dict[str, Any]:
+    return {
+        "title": event.title,
+        "place_name": event.place_name,
+        "address": event.address,
+        "when": _spoken_when(event.starts_at),
+        "notes": event.notes,
+    }
+
+
+def _is_food(event: dict[str, Any]) -> bool:
+    """Donation drives and volunteer shifts say so in their notes; callers asking for food hear those last."""
+    return "not a food pickup" not in (event.get("notes") or "").casefold()
+
+
+def _spoken_events(results: list[dict[str, Any]], days: int) -> str:
+    if not results:
+        return f"I couldn't find any food events in the next {days} days."
+    ordered = sorted(results, key=lambda e: not _is_food(e))[:3]
+    lines = [f"{i}. {e['title']} at {e['place_name']}, {e['when']}" for i, e in enumerate(ordered, start=1)]
+    return "Here's what's coming up: " + ". ".join(lines)
+
+
+@router.post("/api/elevenlabs/events/search")
+async def search_events(
+    body: EventSearchRequest,
+    x_elevenlabs_webhook_key: str | None = Header(default=None),
+) -> dict[str, Any]:
+    _require_tool_key(x_elevenlabs_webhook_key)
+    if not body.zip and not (body.city and body.city.strip()):
+        raise HTTPException(status_code=422, detail="zip or city is required")
+    try:
+        events = await data.list_events(zip=body.zip, city=body.city, days=body.days)
+    except (PyMongoError, RuntimeError):
+        raise HTTPException(status_code=503, detail="Event search is temporarily unavailable") from None
+    results = sorted((_minimal_event(e) for e in events), key=lambda e: not _is_food(e))
+    return {"results": results, "spoken_text": _spoken_events(results, body.days)}
 
 
 @router.get("/api/elevenlabs/users/context")
