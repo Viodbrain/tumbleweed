@@ -301,3 +301,81 @@ async def test_emoji_and_markdown_from_the_model_are_stripped(db, monkeypatch):
     model(monkeypatch, say("**Othello Food Bank** \U0001f34e\n- open Mon-Wed"))
     out = await send("\U0001f37d\U0001f37d")
     assert out == "Othello Food Bank\nopen Mon-Wed"
+
+
+# ---------- language guard ----------
+
+
+@pytest.mark.parametrize(
+    ("text", "expected"),
+    [
+        ("Con gusto le ayudo. Aquí hay tiendas cerca de Othello que aceptan SNAP.", "es"),
+        ("Masaya akong makatulong. Narito ang mga lugar malapit sa inyo sa Othello.", "tl"),
+        ("Happy to help. Here are places near you, call to confirm the hours.", "en"),
+        ("Rất vui được giúp bạn. Đây là các nơi gần bạn ở Othello.", "vi"),
+        ("1. 81 W Main St (0.1 mi)", None),
+    ],
+)
+def test_written_language(text, expected):
+    assert brain.written_language(text) == expected
+
+
+def test_written_language_ignores_place_names():
+    text = "Narito ang mga lugar: La Mexicana Super Market, El Jazmin"
+    assert brain.written_language(text, ["La Mexicana Super Market", "El Jazmin"]) == "tl"
+
+
+async def test_reply_in_wrong_language_is_sent_back_once(db, monkeypatch):
+    def check(messages):
+        note = messages[-1]["content"][0]["content"]
+        assert "written in Spanish" in note and "entirely in Tagalog" in note
+        return say("Masaya akong makatulong. Narito ang mga lugar malapit sa inyo.", lang="tl")
+
+    m = model(monkeypatch, say("Con gusto le ayudo. Aquí hay tiendas cerca de Othello.", lang="tl"), check)
+    out = await send("Kailangan ko ng pagkain malapit sa Othello")
+    assert out.startswith("Masaya akong makatulong")
+    assert len(m.calls) == 2
+    assert user(db)["lang"] == "tl"
+
+
+async def test_reply_in_right_language_costs_no_extra_call(db, monkeypatch):
+    m = model(monkeypatch, say("Con gusto le ayudo. Aquí hay tiendas cerca de Othello.", lang="es"))
+    await send("necesito comida cerca de Othello")
+    assert len(m.calls) == 1
+
+
+async def test_users_language_wins_when_model_mislabels_it(db, monkeypatch):
+    m = model(
+        monkeypatch,
+        say("Con gusto le ayudo. Aquí hay tiendas cerca de Othello.", lang="es"),
+        say("Masaya akong makatulong. Narito ang mga lugar malapit sa inyo.", lang="es"),
+    )
+    out = await send("Kailangan ko ng pagkain malapit sa Othello, saan po?")
+    assert out.startswith("Masaya akong makatulong")
+    assert len(m.calls) == 2
+    assert user(db)["lang"] == "tl"
+
+
+async def test_ambiguous_user_text_falls_back_to_model_lang(db, monkeypatch):
+    m = model(monkeypatch, say("Con gusto le ayudo. Aquí hay comida cerca de Othello.", lang="es"))
+    await send("food Othello")
+    assert len(m.calls) == 1
+    assert user(db)["lang"] == "es"
+
+
+async def test_shorten_after_rewrite_keeps_the_rewritten_language(db, monkeypatch):
+    long_tl = "Masaya akong makatulong. Narito ang mga lugar malapit sa inyo sa Othello. " * 6
+
+    def shorten(messages):
+        note = messages[-1]["content"][0]["content"]
+        assert "written in Tagalog" in note and "Masaya akong makatulong" in note
+        return say("Masaya akong makatulong. Narito ang mga lugar malapit sa inyo.", lang="tl")
+
+    model(
+        monkeypatch,
+        say("Con gusto le ayudo. Aquí hay tiendas cerca de Othello.", lang="es"),
+        say(long_tl, lang="tl"),
+        shorten,
+    )
+    out = await send("Kailangan ko ng pagkain malapit sa Othello, saan po?")
+    assert out == "Masaya akong makatulong. Narito ang mga lugar malapit sa inyo."
