@@ -2,10 +2,12 @@
 
 from __future__ import annotations
 
+import asyncio
 import json
 import logging
 import os
 import re
+from collections.abc import Iterable
 from datetime import UTC, datetime
 from typing import Any, Literal
 from zoneinfo import ZoneInfo
@@ -33,6 +35,8 @@ MAX_REPLY_CHARS = 300
 MAX_TOOL_ROUNDS = 3
 HISTORY_MESSAGES = 6
 MAX_INPUT_CHARS = 2000
+# Whole-reply budget. The webhook sends a "Got it" ack after 1.5 s; past this, give the fallback.
+REPLY_DEADLINE_S = 20.0
 
 JOIN_REPLY = "You're signed up for food event reminders near you. Text STOP to opt out."
 STOP_REPLY = "You won't get reminders anymore. You can still text me anytime."
@@ -277,6 +281,35 @@ def _normalize_zip(value: Any) -> str | None:
     return z if _ZIP.fullmatch(z) else None
 
 
+_LANG_STOPWORDS = {
+    "en": {"the", "and", "you", "is", "are", "for", "to", "your", "open", "call", "near", "with", "can", "of"},
+    "es": {"el", "la", "los", "las", "y", "de", "para", "usted", "puede", "está", "abierto", "llame", "cerca", "con"},
+    "tl": {"ang", "ng", "sa", "mga", "at", "para", "po", "ito", "bukas", "tumawag", "malapit", "kayo", "na"},
+}
+_VI_LETTERS = re.compile("[ăâđêôơưạảấầẩẫậắằẳẵặẹẻẽếềểễệỉịọỏốồổỗộớờởỡợụủứừửữựỳỵỷỹ]", re.IGNORECASE)
+LANG_NAMES = {"en": "English", "es": "Spanish", "tl": "Tagalog", "vi": "Vietnamese"}
+
+
+def written_language(text: str, ignore: Iterable[str] = (), min_hits: int = 1) -> str | None:
+    """Rough language a reply is written in (en, es, tl or vi), ignoring place names, URLs and numbers.
+
+    Returns None when unsure, so callers only act on a clear signal.
+    """
+    t = text.lower()
+    for name in ignore:
+        if name:
+            t = t.replace(name.lower(), " ")
+    t = re.sub(r"https?://\S+|\S+@\S+|[\d+()/-]+", " ", t)
+    words = re.findall(r"[^\W\d_]+", t)
+    if not words:
+        return None
+    if len(_VI_LETTERS.findall(t)) >= 3:
+        return "vi"
+    scores = {lang: sum(w in sw for w in words) for lang, sw in _LANG_STOPWORDS.items()}
+    best = max(scores, key=scores.get)
+    return best if scores[best] >= min_hits else None
+
+
 # ---------- LLM ----------
 
 _client: AsyncAnthropic | None = None
@@ -291,7 +324,8 @@ async def call_model(
     """The only function that touches the LLM SDK. Returns content blocks as plain dicts."""
     global _client
     if _client is None:
-        _client = AsyncAnthropic(timeout=10.0, max_retries=1)
+        # Haiku calls usually take ~1 s but spike to 5-7 s at times; retry once only if a call stalls past 8 s.
+        _client = AsyncAnthropic(timeout=8.0, max_retries=1)
     resp = await _client.messages.create(
         model=os.getenv("LLM_MODEL", "claude-haiku-5-5"),
         max_tokens=max_tokens,
@@ -390,11 +424,21 @@ async def run_agent(
             text = clean_text(str(final.get("text") or ""))
             if not text:
                 raise RuntimeError("send_reply had empty text")
+            lang = _normalize_lang(final.get("lang"))
+            # The user's own words are the better signal: the model sometimes reports and writes Spanish
+            # for Tagalog because nearby places have Spanish names. Ambiguous text falls back to its lang.
+            asked_in = written_language(user_text or "", min_hits=2)
+            if asked_in:
+                lang = asked_in
+            names = [r.get("name") or r.get("place_name") for r in last_tool_results]
+            written = written_language(text, names, min_hits=2)
+            if lang in LANG_NAMES and written and written != lang:
+                text = await _rewrite_in_language(system, messages, use["id"], lang, written, text)
             if len(text) > MAX_REPLY_CHARS:
-                text = await _shorten(system, messages, use["id"], text)
+                text = await _shorten(system, messages, use["id"], text, lang)
             return {
                 "text": text,
-                "lang": _normalize_lang(final.get("lang")),
+                "lang": lang,
                 "zip": _normalize_zip(final.get("zip")),
             }
         content, is_error = await _run_tool(use["name"], use["input"], handle=handle, user_text=user_text)
@@ -414,11 +458,36 @@ async def run_agent(
     raise RuntimeError("model never called send_reply")
 
 
-async def _shorten(system: str, messages: list[dict[str, Any]], tool_use_id: str, text: str) -> str:
-    """Asks the model once to shorten an over-long reply, then hard-enforces the limit."""
+async def _rewrite_in_language(
+    system: str, messages: list[dict[str, Any]], tool_use_id: str, lang: str, written: str, text: str
+) -> str:
+    """Asks the model once to resend a reply written in the wrong language."""
     note = (
-        f"Not sent: the text is {len(text)} characters. Call send_reply again with the same message, "
-        f"same language, in at most {MAX_REPLY_CHARS} characters."
+        f"Not sent: lang is {lang} but the text is written in {LANG_NAMES[written]}. Call send_reply again "
+        f"with the same message written entirely in {LANG_NAMES[lang]}."
+    )
+    result = {"type": "tool_result", "tool_use_id": tool_use_id, "content": note}
+    retry = [*messages, {"role": "user", "content": [result]}]
+    try:
+        blocks = await call_model(system, retry, {"type": "tool", "name": "send_reply"})
+        use = next(b for b in blocks if b["type"] == "tool_use" and b["name"] == "send_reply")
+        rewritten = clean_text(str(use["input"].get("text") or ""))
+        if rewritten:
+            return rewritten
+    except Exception:
+        log.warning("language rewrite failed; sending original", exc_info=True)
+    return text
+
+
+async def _shorten(
+    system: str, messages: list[dict[str, Any]], tool_use_id: str, text: str, lang: str | None = None
+) -> str:
+    """Asks the model once to shorten an over-long reply, then hard-enforces the limit."""
+    # Quote the draft: after a language rewrite, the last send_reply in `messages` is the old draft.
+    language = LANG_NAMES.get(lang or "", "the same language")
+    note = (
+        f"Not sent: the text is {len(text)} characters. Call send_reply again with this message shortened "
+        f"to at most {MAX_REPLY_CHARS} characters, written in {language}:\n{text}"
     )
     retry = [
         *messages,
@@ -459,7 +528,11 @@ def _history_to_messages(docs: list[dict[str, Any]], text: str) -> list[dict[str
 async def reply(args: ReplyArgs) -> str:
     last_tool_results.clear()
     try:
-        return await _reply(args)
+        async with asyncio.timeout(REPLY_DEADLINE_S):
+            return await _reply(args)
+    except TimeoutError:
+        log.error("reply timed out after %.0fs for handle=%s", REPLY_DEADLINE_S, args.handle)
+        return ERROR_REPLY
     except Exception:
         log.exception("reply failed for handle=%s", args.handle)
         return ERROR_REPLY

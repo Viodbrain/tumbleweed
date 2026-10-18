@@ -45,28 +45,11 @@ def names_in(results: list[dict[str, Any]]) -> set[str]:
     return out
 
 
-STOPWORDS = {
-    "en": {"the", "and", "you", "is", "are", "for", "to", "your", "open", "call", "near", "with", "can", "of"},
-    "es": {"el", "la", "los", "las", "y", "de", "para", "usted", "puede", "está", "abierto", "llame", "cerca", "con"},
-    "tl": {"ang", "ng", "sa", "mga", "at", "para", "po", "ito", "bukas", "tumawag", "malapit", "kayo", "na"},
-}
-VI_LETTERS = re.compile("[ăâđêôơưạảấầẩẫậắằẳẵặẹẻẽếềểễệỉịọỏốồổỗộớờởỡợụủứừửữựỳỵỷỹ]", re.IGNORECASE)
-
-
 def text_lang(text: str, known_places: set[str]) -> str | None:
-    """Rough language of the reply text itself, ignoring place names, URLs and numbers."""
-    t = text.lower()
-    for name in known_places:
-        t = t.replace(name.lower(), " ")
-    t = re.sub(r"https?://\S+|\S+@\S+|[\d+()/-]+", " ", t)
-    words = re.findall(r"[^\W\d_]+", t)
-    if not words:
-        return None
-    if len(VI_LETTERS.findall(t)) >= 3:
-        return "vi"
-    scores = {lang: sum(w in sw for w in words) for lang, sw in STOPWORDS.items()}
-    best = max(scores, key=scores.get)
-    return best if scores[best] > 0 else None
+    """Rough language of the reply text itself; same detector the brain's language guard uses."""
+    from app.brain import written_language
+
+    return written_language(text, known_places)
 
 
 def check_case(case, replies, langs, tool_results, known_places) -> list[str]:

@@ -56,6 +56,17 @@ def _find_message(event: Any) -> dict[str, Any] | None:
     return None
 
 
+def _content_text(content: dict[str, Any]) -> str:
+    """Text of a message. iMessage can send one message as a "group" of parts (e.g. a ZIP and a
+    sentence); join their text parts and ignore attachments, so the user still gets an answer."""
+    if content.get("type") == "text":
+        return content.get("text").strip() if isinstance(content.get("text"), str) else ""
+    if content.get("type") == "group" and isinstance(content.get("parts"), list):
+        texts = [_content_text(p) for p in content["parts"] if isinstance(p, dict)]
+        return " ".join(t for t in texts if t)
+    return ""
+
+
 def extract_inbound(event: Any) -> Inbound | None:
     m = _find_message(event)
     if m is None:
@@ -71,12 +82,12 @@ def extract_inbound(event: Any) -> Inbound | None:
         return None
     if space.get("kind") != "direct":
         return None
-    if content.get("type") != "text":
+    text = _content_text(content)
+    if not text:
         return None
 
     platform = m.get("platform")
     channel: Channel | None = "imessage" if platform == "imessage" else "sms" if platform == "sms" else None
-    text = content.get("text").strip() if isinstance(content.get("text"), str) else ""
     fields = {
         "message_id": _str(m.get("id")),
         "space_id": _str(space.get("id")),
