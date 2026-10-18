@@ -102,6 +102,34 @@ the root fallback only supports migration. The backend and every database CLI us
 this loader. Share secrets privately, never in source control or review comments.
 The database client and database name are cached after the first connection.
 
+## ElevenLabs voice endpoints
+
+The FastAPI service exposes authenticated ElevenLabs integrations without a
+separate worker process:
+
+- `POST /api/elevenlabs/places/search` requires a conversation ID, accepts the
+  existing location/filter arguments, and returns at most five minimal place
+  records plus `spoken_text`.
+  Internal IDs, coordinates, region, and SNAP status are not returned. SNAP may
+  be used as an explicit search filter, but the response uses neutral wording.
+- `GET /api/elevenlabs/users/context` returns only the conversation's known ZIP
+  and language.
+- `POST /api/elevenlabs/users/context` saves only bounded food preferences and
+  requires an exact evidence quote from the supplied `user_text`.
+- `DELETE /api/elevenlabs/users/context` clears the caller's context and
+  message history using the existing `FORGET` semantics.
+- `POST /api/elevenlabs/post-call` accepts ElevenLabs HMAC-signed
+  `post_call_transcription` events and stores the full event in `voice_calls`,
+  deduplicated by conversation ID. There is no TTL policy.
+
+In-call tools require the `X-ElevenLabs-Webhook-Key` header and
+`ELEVENLABS_WEBHOOK_KEY`. Post-call webhooks require the
+`elevenlabs-signature` header and `ELEVENLABS_WEBHOOK_SECRET`. Voice context is
+scoped to `voice:<conversation_id>` because a caller phone number supplied by a
+voice tool is not independently verifiable. Post-call records store normalized
+metadata, transcript, and analysis (not an unbounded raw payload), are capped
+at 8 MiB per request, and have no automatic TTL policy.
+
 Index setup includes unique `users.handle`, message history/feed indexes, and
 `webhook_events.received_at`; the webhook message ID uses MongoDB's automatic
 unique `_id` index. No TTL policy is imposed. Existing duplicate user handles

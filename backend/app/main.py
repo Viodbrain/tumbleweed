@@ -12,7 +12,7 @@ load_environment()
 from fastapi import FastAPI  # noqa: E402
 from fastapi.middleware.cors import CORSMiddleware  # noqa: E402
 
-from app.routes import demo, photon  # noqa: E402
+from app.routes import demo, elevenlabs, photon  # noqa: E402
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(name)s %(message)s")
 
@@ -20,11 +20,12 @@ app = FastAPI(title="Tumbleweed API")
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[o.strip() for o in os.getenv("ALLOWED_ORIGINS", "*").split(",") if o.strip()],
-    allow_methods=["GET", "POST"],
+    allow_methods=["DELETE", "GET", "POST"],
     allow_headers=["*"],
 )
 app.include_router(photon.router)
 app.include_router(demo.router)
+app.include_router(elevenlabs.router)
 
 
 @app.get("/health")
