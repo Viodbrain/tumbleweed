@@ -83,7 +83,6 @@ async def handle_inbound(m: Inbound) -> None:
         await send_text(
             space_id=m.space_id,
             sender_id=m.agent_id,
-            parent_message_id=m.message_id,
             text=text,
             idempotency_key=f"reply:{m.message_id}",
         )
