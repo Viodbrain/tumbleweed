@@ -8,7 +8,7 @@ from typing import Literal
 from pydantic import BaseModel, ConfigDict, Field
 
 PlaceKind = Literal["foodbank", "grocery", "market", "meal"]
-Channel = Literal["imessage", "sms", "web"]
+Channel = Literal["imessage", "sms", "web", "voice"]
 Day = Literal["mon", "tue", "wed", "thu", "fri", "sat", "sun"]
 Region = Literal["rural", "seattle"]
 
@@ -33,6 +33,7 @@ class Place(_MongoDoc):
     accepts_snap: bool = False
     phone: str | None = None
     notes: str | None = None  # curated facts: "No ID required, Spanish spoken"
+    voice_notes: str | None = None  # explicitly approved for spoken responses
     region: Region
 
 
